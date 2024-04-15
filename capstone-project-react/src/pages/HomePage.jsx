@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 function HomePage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const user = useSelector(state => state.auth.user);
+    const role = useSelector(state => state.auth.role);
+    console.log(role);
     const dispatch = useDispatch();
 
     function truncateText(text, maxLength) {
@@ -31,6 +33,9 @@ function HomePage() {
     return (
         <div className='PageDiv'>
             <h1 className="mb-4">Welcome to the Home Page, {isLoggedIn ? user.name : 'Guest'}</h1>
+            {role === 'user' && (
+                <p className="text-muted">Logged in as admin</p>
+            )}
             <div className="d-flex flex-wrap">
                 {items.map(item => (
                     <div className="card m-2" key={item.id}>

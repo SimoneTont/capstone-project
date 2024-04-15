@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggedIn: false,
-  role: null,
+  user: null,
 };
 
 const authSlice = createSlice({
@@ -11,11 +11,13 @@ const authSlice = createSlice({
   reducers: {
     loginSuccess(state, action) {
       state.isLoggedIn = true;
-      state.role = action.payload.role;
+      state.user = action.payload.user;
+      // Update isAdmin based on the isAdmin flag in the action payload
+      state.user.isAdmin = action.payload.user.isAdmin;
     },
     logout(state) {
       state.isLoggedIn = false;
-      state.role = null;
+      state.user = null;
     },
   },
 });

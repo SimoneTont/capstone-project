@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from '../redux/authSlice';
 import axios from '../api/axios';
@@ -7,11 +7,14 @@ import { Navigate } from 'react-router-dom';
 function LoginPage() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       await axios.get("/sanctum/csrf-cookie");
@@ -19,13 +22,24 @@ function LoginPage() {
         email,
         password,
       });
+      
       if (response.status === 200) {
-        dispatch(loginSuccess(response.data.role)); // Assuming response.data.role contains role information
-        
-        console.log("Login success. Role:", response.data.role);
+        const userData = response.data.user;
+        const isAdmin = userData.isAdmin; // Assuming isAdmin is a boolean flag
+        dispatch(loginSuccess({
+          user: {
+            name: userData.name,
+            email: userData.email,
+            id: userData.id,
+            isAdmin: isAdmin
+          }
+        }));
+        console.log("Login success:", userData);
       }
     } catch (error) {
       console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -54,7 +68,8 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="submit">Login</button>
+        <button type="submit" disabled={isLoading}>Login</button>
+        {isLoading && <p>Loading...</p>}
       </form>
       <p>Don't have an account? <a href="/register">Register now!</a></p>
     </div>
