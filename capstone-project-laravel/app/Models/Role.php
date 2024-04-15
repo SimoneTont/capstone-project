@@ -9,11 +9,19 @@ class Role extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'admin',
     ];
 
+    /**
+     * Get the user that owns the role.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

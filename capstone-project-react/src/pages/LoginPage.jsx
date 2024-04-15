@@ -20,9 +20,9 @@ function LoginPage() {
         password,
       });
       if (response.status === 200) {
-        dispatch(loginSuccess(response.data.user));
+        dispatch(loginSuccess(response.data.role)); // Assuming response.data.role contains role information
         
-        console.log("Login success:", response.data.user);
+        console.log("Login success. Role:", response.data.role);
       }
     } catch (error) {
       console.error("Login error:", error);

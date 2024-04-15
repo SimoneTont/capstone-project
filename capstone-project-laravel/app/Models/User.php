@@ -14,7 +14,7 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
         'name',
@@ -25,7 +25,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $hidden = [
         'password',
@@ -35,15 +35,27 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast.
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
-    public function roles()
+    /**
+     * Get the role associated with the user.
+     */
+    public function role()
     {
-        return $this->hasMany(Role::class);
+        return $this->hasOne(Role::class);
+    }
+
+    /**
+     * Assign a role to the user.
+     */
+    public function assignRole($isAdmin = false)
+    {
+        $this->role()->create([
+            'admin' => $isAdmin,
+        ]);
     }
 }
