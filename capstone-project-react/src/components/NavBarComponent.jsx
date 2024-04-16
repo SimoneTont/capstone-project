@@ -16,7 +16,7 @@ function NavBarComponent() {
       axios.get("/sanctum/csrf-cookie");
       const response = axios.post("/logout", {
       });
-      if (response.status === 204) {
+      if (response.status === 200) {
         console.log("Logout success:", response);
       }
     } catch (error) {
