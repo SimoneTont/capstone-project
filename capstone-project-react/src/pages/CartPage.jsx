@@ -5,27 +5,29 @@ import { Navigate } from 'react-router-dom';
 
 function CartPage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-    const [aggregatedItems, setAggregatedItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
     const userId = useSelector(state => state.auth.user ? state.auth.user.id : null);
 
     useEffect(() => {
-        if (isLoggedIn && userId) {
-            const fetchCartItems = async () => {
+        const fetchCartItems = async () => {
+            if (isLoggedIn && userId) {
                 try {
                     const response = await axios.get(`http://127.0.0.1:8000/api/cart-items/${userId}`);
-                    const cartItems = response.data.cartItems;
-                    const aggregated = aggregateItemsByProductName(cartItems);
-                    setAggregatedItems(aggregated);
+                    setCartItems(response.data.cartItems);
                 } catch (error) {
                     console.error('Error fetching cart items:', error);
                 }
-            };
+            }
+        };
 
-            fetchCartItems();
-        }
+        fetchCartItems();
     }, [isLoggedIn, userId]);
 
-    const aggregateItemsByProductName = (items) => {
+    if (!isLoggedIn) {
+        return <Navigate to="/login" />;
+    }
+
+    function aggregateItemsByName(items) {
         const aggregated = {};
         items.forEach(item => {
             const { id, name, description, image_path, quantity } = item;
@@ -36,10 +38,6 @@ function CartPage() {
             }
         });
         return Object.values(aggregated);
-    };
-
-    if (!isLoggedIn) {
-        return <Navigate to="/login" />;
     }
 
     function truncateText(text, maxLength) {
@@ -53,23 +51,47 @@ function CartPage() {
     return (
         <div className='PageDiv'>
             <p>Cart</p>
-            {aggregatedItems.length === 0 ? (
-                <p>No items in the cart.</p>
-            ) : (
-                aggregatedItems.map(item => (
-                    <div className="d-flex" key={item.id}>
-                        <div className="card m-2">
+            <div className="d-flex flex-wrap">
+                {cartItems.length === 0 ? (
+                    <p>No items in the cart.</p>
+                ) : (
+                    cartItems.map(item => (
+                        <div className="card m-2" style={{ width: '18rem' }} key={item.id}>
                             <img src={item.image_path} className="card-img-top" alt={"img" + item.id} />
                             <div className="card-body">
                                 <h5 className="card-title">{item.name}</h5>
                                 <p className="card-text">{truncateText(item.description, 30)}</p>
                                 <p className="card-text">Quantity: {item.quantity}</p>
-                                <a href={"/detail/" + item.id} className="btn btn-primary">Details</a>
+                                <p className="card-text">Price: ${item.price * item.quantity}</p>
                             </div>
                         </div>
-                    </div>
-                ))
-            )}
+                    ))
+                )}
+            </div>
+
+            <hr />
+
+            <div>
+                <h3>Order Summary</h3>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Total Quantity</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {aggregateItemsByName(cartItems).map(item => (
+                            <tr key={item.name}>
+                                <td>{item.name}</td>
+                                <td>{item.quantity}</td>
+                                <td>${item.quantity * item.price}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

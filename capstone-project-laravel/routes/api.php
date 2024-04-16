@@ -22,13 +22,13 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 //Item routes
-Route::get('/items', [ItemController::class, 'index']);//List
-Route::get('/items/{id}', [ItemController::class, 'show']);//Details
-Route::post('items/{id}/buy', [ItemController::class, 'buy']);//Buy
+Route::get('/items', [ItemController::class, 'index']); //List
+Route::get('/items/{id}', [ItemController::class, 'show']); //Details
+Route::post('items/{id}/buy', [ItemController::class, 'buy']); //Buy
 
 //Cart routes
-Route::get('/cart-items', [CartItemsController::class, 'index']);//Cart items list
-Route::get('/cart-items/{id}', [CartItemsController::class, 'show']);//Cart items of a given user
+Route::get('/cart-items', [CartItemsController::class, 'index']); //Cart items list
+Route::get('/cart-items/{id}', [CartItemsController::class, 'show']); //Cart items of a given user
 
 //Email routes
 Route::post('/send-email', [ContactController::class, 'send']); //Contact
