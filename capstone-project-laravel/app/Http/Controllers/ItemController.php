@@ -44,6 +44,9 @@ class ItemController extends Controller
             return response()->json(['error' => 'Item not found'], 404);
         }
         $item->name = $request->input('name');
+        $item->description = $request->input('description');
+        $item->quantity = $request->input('quantity');
+        $item->image_path = $request->input('image_path');
         $item->save();
 
         return response()->json($item);

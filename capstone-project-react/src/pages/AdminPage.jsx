@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from "../api/axios";
 import { Navigate } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 
 function AdminPage() {
     const isAdmin = useSelector(state => state.auth.user ? state.auth.user.isAdmin : false);
@@ -10,6 +11,14 @@ function AdminPage() {
     const [itemDescription, setItemDescription] = useState('');
     const [itemQuantity, setItemQuantity] = useState('');
     const [itemImage, setItemImage] = useState('');
+
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editItemId, setEditItemId] = useState(null);
+    const [editedItemName, setEditedItemName] = useState('');
+    const [editedItemDescription, setEditedItemDescription] = useState('');
+    const [editedItemQuantity, setEditedItemQuantity] = useState('');
+    const [editedItemImage, setEditedItemImage] = useState('');
+
 
     useEffect(() => {
         if (isAdmin) {
@@ -23,20 +32,18 @@ function AdminPage() {
         }
     }, [isAdmin]);
 
-    if (!isAdmin) {
-        return <Navigate to="/" />;
-    }
-
     const handleEdit = (itemId) => {
-        axios.put(`http://127.0.0.1:8000/api/edit/${itemId}`)
-            .then(response => {
-                console.log('Item edited successfully:', response.data);
-                fetchItems();
-            })
-            .catch(error => {
-                console.error('Error editing item:', error);
-            });
+        const selectedItem = items.find(item => item.id === itemId);
+        if (selectedItem) {
+            setEditItemId(itemId);
+            setEditedItemName(selectedItem.name);
+            setEditedItemDescription(selectedItem.description);
+            setEditedItemQuantity(selectedItem.quantity);
+            setEditedItemImage(selectedItem.image_path);
+            setShowEditModal(true);
+        }
     };
+
 
     const handleDelete = (itemId) => {
         axios.delete(`http://127.0.0.1:8000/api/delete/${itemId}`)
@@ -82,6 +89,32 @@ function AdminPage() {
                 console.error('Error adding item:', error);
             });
     };
+
+    const handleEditConfirm = () => {
+        const editedItem = {
+            name: editedItemName,
+            description: editedItemDescription,
+            quantity: editedItemQuantity,
+            image_path: editedItemImage
+        };
+
+        console.log('Edited Item:', editedItem);
+
+        axios.put(`http://127.0.0.1:8000/api/edit/${editItemId}`, editedItem)
+            .then(response => {
+                console.log('Item edited successfully:', response.data);
+                fetchItems();
+                setShowEditModal(false);
+            })
+            .catch(error => {
+                console.error('Error editing item:', error);
+            });
+    };
+
+
+    if (!isAdmin) {
+        return <Navigate to="/" />;
+    }
 
     return (
         <div className='PageDiv'>
@@ -130,6 +163,34 @@ function AdminPage() {
                     ))}
                 </tbody>
             </table>
+            {/* Edit Item Modal */}
+            <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Item</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="mb-3">
+                        <label htmlFor="editedItemName" className="form-label">Item Name</label>
+                        <input type="text" className="form-control" id="editedItemName" value={editedItemName} onChange={(e) => setEditedItemName(e.target.value)} required />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="editedItemDescription" className="form-label">Item Description</label>
+                        <textarea className="form-control" id="editedItemDescription" value={editedItemDescription} onChange={(e) => setEditedItemDescription(e.target.value)} required />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="editedItemImage" className="form-label">Item Image Link</label>
+                        <input type="text" className="form-control" id="editedItemImage" value={editedItemImage} onChange={(e) => setEditedItemImage(e.target.value)} required />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="editedItemQuantity" className="form-label">Item Quantity</label>
+                        <input type="number" className="form-control" id="editedItemQuantity" value={editedItemQuantity} onChange={(e) => setEditedItemQuantity(e.target.value)} required />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
+                    <Button variant="primary" onClick={handleEditConfirm}>Save Changes</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
