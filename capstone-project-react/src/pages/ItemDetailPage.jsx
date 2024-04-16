@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 
 function ItemDetailPage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-    const userID = useSelector(state => state.auth.user.id);
+    const userID = useSelector(state => state.auth.user ? state.auth.user.id : null);
     const dispatch = useDispatch();
 
     const { itemId } = useParams();

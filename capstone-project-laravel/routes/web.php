@@ -29,4 +29,5 @@ Route::get('/dashboard', function () {
         'message' => 'Unauthorized'
     ], 401);
 });
+
 require __DIR__.'/auth.php';

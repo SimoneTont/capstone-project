@@ -25,15 +25,7 @@ function LoginPage() {
       
       if (response.status === 200) {
         const userData = response.data.user;
-        const isAdmin = userData.isAdmin; // Assuming isAdmin is a boolean flag
-        dispatch(loginSuccess({
-          user: {
-            name: userData.name,
-            email: userData.email,
-            id: userData.id,
-            isAdmin: isAdmin
-          }
-        }));
+        dispatch(loginSuccess({ user: userData }));
         console.log("Login success:", userData);
       }
     } catch (error) {

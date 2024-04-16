@@ -6,22 +6,24 @@ import { Navigate } from 'react-router-dom';
 function CartPage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const [aggregatedItems, setAggregatedItems] = useState([]);
-    const userId = useSelector(state => state.auth.user.id);
+    const userId = useSelector(state => state.auth.user ? state.auth.user.id : null);
 
     useEffect(() => {
-        const fetchCartItems = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/cart-items/${userId}`);
-                const cartItems = response.data.cartItems;
-                const aggregated = aggregateItemsByProductName(cartItems);
-                setAggregatedItems(aggregated);
-            } catch (error) {
-                console.error('Error fetching cart items:', error);
-            }
-        };
+        if (isLoggedIn && userId) {
+            const fetchCartItems = async () => {
+                try {
+                    const response = await axios.get(`http://127.0.0.1:8000/api/cart-items/${userId}`);
+                    const cartItems = response.data.cartItems;
+                    const aggregated = aggregateItemsByProductName(cartItems);
+                    setAggregatedItems(aggregated);
+                } catch (error) {
+                    console.error('Error fetching cart items:', error);
+                }
+            };
 
-        fetchCartItems();
-    }, [userId]);
+            fetchCartItems();
+        }
+    }, [isLoggedIn, userId]);
 
     const aggregateItemsByProductName = (items) => {
         const aggregated = {};
@@ -37,7 +39,7 @@ function CartPage() {
     };
 
     if (!isLoggedIn) {
-        return <Navigate to="/" />;
+        return <Navigate to="/login" />;
     }
 
     function truncateText(text, maxLength) {

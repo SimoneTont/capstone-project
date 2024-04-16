@@ -7,6 +7,7 @@ import axios from '../api/axios';
 
 function NavBarComponent() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isAdmin = useSelector(state => state.auth.user ? state.auth.user.isAdmin : false);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -42,6 +43,7 @@ function NavBarComponent() {
             {isLoggedIn && (<Nav.Link as={Link} to="/orders" className={isNavLinkActive('/orders') ? 'fw-bolder' : ''}>Your Orders</Nav.Link>)}
             {!isLoggedIn && (<Nav.Link as={Link} to="/login" className={isNavLinkActive('/login') ? 'fw-bolder' : ''}>Login</Nav.Link>)}
             {!isLoggedIn && (<Nav.Link as={Link} to="/register" className={isNavLinkActive('/register') ? 'fw-bolder' : ''}>Register</Nav.Link>)}
+            {isAdmin && (<Nav.Link as={Link} to="/admin" className={isNavLinkActive('/admin') ? 'fw-bolder' : ''}>Admin</Nav.Link>)}
           </Nav>
           {isLoggedIn && (
             <Nav.Link as={Link} to="/login"> 

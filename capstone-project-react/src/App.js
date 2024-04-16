@@ -1,12 +1,12 @@
-//Css e Js
-import './css/App.css';
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // Import di React
 import React from 'react';
 import { Routes, Route, BrowserRouter, Navigate, useLocation } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+//Css e Js
+import './css/App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // Pages
 import AboutPage from './pages/AboutPage';
 import CartPage from './pages/CartPage';
@@ -18,6 +18,7 @@ import OrdersPage from './pages/OrdersPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DetailPage from './pages/ItemDetailPage';
+import AdminPage from './pages/AdminPage';
 // Components
 import NavBarComponent from './components/NavBarComponent';
 import FooterComponent from './components/FooterComponent';
@@ -31,6 +32,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/contact" element={<ContactPage />} />
