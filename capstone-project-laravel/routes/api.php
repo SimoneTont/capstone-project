@@ -21,11 +21,18 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Item routes
 Route::get('/items', [ItemController::class, 'index']);//List
 Route::get('/items/{id}', [ItemController::class, 'show']);//Details
 Route::post('items/{id}/buy', [ItemController::class, 'buy']);//Buy
 
+//Cart routes
 Route::get('/cart-items', [CartItemsController::class, 'index']);//Cart items list
 Route::get('/cart-items/{id}', [CartItemsController::class, 'show']);//Cart items of a given user
 
-Route::post('/send-email', [ContactController::class, 'send']);//Contact
+//Email routes
+Route::post('/send-email', [ContactController::class, 'send']); //Contact
+
+// Admin routes
+Route::put('/edit/{id}', [ItemController::class, 'update']); //Edit
+Route::delete('/delete/{id}', [ItemController::class, 'destroy']); //Delete

@@ -23,6 +23,26 @@ function AdminPage() {
         return <Navigate to="/" />;
     }
 
+    const handleEdit = (itemId) => {
+        axios.put(`http://127.0.0.1:8000/api/edit/${itemId}`)
+            .then(response => {
+                console.log('Item edited successfully:', response.data);
+            })
+            .catch(error => {
+                console.error('Error editing item:', error);
+            });
+    };
+
+    const handleDelete = (itemId) => {
+        axios.delete(`http://127.0.0.1:8000/api/delete/${itemId}`)
+            .then(response => {
+                console.log('Item deleted successfully:', response.data);
+            })
+            .catch(error => {
+                console.error('Error deleting item:', error);
+            });
+    };
+
     return (
         <div className='PageDiv'>
             <h1>Admin Page</h1>
@@ -44,8 +64,8 @@ function AdminPage() {
                             <td>{item.description}</td>
                             <td>{item.quantity}</td>
                             <td>
-                                <a href={`/edit/${item.id}`} className="btn btn-warning me-2">Edit</a>
-                                <a href={`/delete/${item.id}`} className="btn btn-danger">Delete</a>
+                                <button className="btn btn-warning me-2" onClick={() => handleEdit(item.id)}>Edit</button>
+                                <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
