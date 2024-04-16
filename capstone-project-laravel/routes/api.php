@@ -34,5 +34,6 @@ Route::get('/cart-items/{id}', [CartItemsController::class, 'show']);//Cart item
 Route::post('/send-email', [ContactController::class, 'send']); //Contact
 
 // Admin routes
+Route::post('/add', [ItemController::class, 'store']); //Add
 Route::put('/edit/{id}', [ItemController::class, 'update']); //Edit
 Route::delete('/delete/{id}', [ItemController::class, 'destroy']); //Delete

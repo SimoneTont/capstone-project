@@ -44,7 +44,7 @@ class User extends Authenticatable
     /**
      * Get the role associated with the user.
      */
-    public function role()
+    public function roles()
     {
         return $this->hasOne(Role::class);
     }
@@ -54,7 +54,7 @@ class User extends Authenticatable
      */
     public function assignRole($isAdmin = false)
     {
-        $this->role()->create([
+        $this->roles()->create([
             'admin' => $isAdmin,
         ]);
     }

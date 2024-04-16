@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
     $request->session()->regenerate();
 
     $user = Auth::user();
-    $isAdmin = $user->role && $user->role->admin;
+    $isAdmin = $user->roles && $user->roles->admin;
 
     return response()->json([
         'message' => 'User logged in successfully',

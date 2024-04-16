@@ -22,6 +22,9 @@ class ItemController extends Controller
     {
         $item = new Item();
         $item->name = $request->input('name');
+        $item->description = $request->input('description');
+        $item->quantity = $request->input('quantity');
+        $item->image_path = $request->input('image_path');
         $item->save();
 
         return response()->json($item, 201);
