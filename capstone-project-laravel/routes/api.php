@@ -29,6 +29,7 @@ Route::post('items/{id}/cart', [ItemController::class, 'cart']); //Send to cart
 //Cart routes
 Route::get('/cart-items', [CartItemsController::class, 'index']); //Cart items list
 Route::get('/cart-items/{id}', [CartItemsController::class, 'show']); //Cart items of a given user
+Route::post('/cart-items/{id}/checkout', [CartItemsController::class, 'checkout']); //Checkout
 
 //Email routes
 Route::post('/send-email', [ContactController::class, 'send']); //Contact

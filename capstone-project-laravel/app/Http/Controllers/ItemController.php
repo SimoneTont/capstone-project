@@ -25,6 +25,7 @@ class ItemController extends Controller
         $item->description = $request->input('description');
         $item->quantity = $request->input('quantity');
         $item->image_path = $request->input('image_path');
+        $item->price = $request->input('price');
         $item->save();
 
         return response()->json($item, 201);
@@ -47,6 +48,7 @@ class ItemController extends Controller
         $item->description = $request->input('description');
         $item->quantity = $request->input('quantity');
         $item->image_path = $request->input('image_path');
+        $item->price = $request->input('price');
         $item->save();
 
         return response()->json($item);
@@ -66,6 +68,7 @@ class ItemController extends Controller
     public function cart(Request $request, $id)
     {
         $data = $request->only(['user_id', 'quantity', 'price']);
+
         $data['item_id'] = $id;
 
         try {
@@ -81,7 +84,12 @@ class ItemController extends Controller
                 $item->quantity -= $data['quantity'];
                 $item->save();
 
-                CartItem::create($data);
+                CartItem::create([
+                    'item_id' => $data['item_id'],
+                    'user_id' => $data['user_id'],
+                    'quantity' => $data['quantity'],
+                    'price' => $data['price'],
+                ]);
 
                 DB::commit();
 

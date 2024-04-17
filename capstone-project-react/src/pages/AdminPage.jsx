@@ -11,6 +11,7 @@ function AdminPage() {
     const [itemDescription, setItemDescription] = useState('');
     const [itemQuantity, setItemQuantity] = useState('');
     const [itemImage, setItemImage] = useState('');
+    const [price, setPrice] = useState('');
 
     const [showEditModal, setShowEditModal] = useState(false);
     const [editItemId, setEditItemId] = useState(null);
@@ -18,6 +19,7 @@ function AdminPage() {
     const [editedItemDescription, setEditedItemDescription] = useState('');
     const [editedItemQuantity, setEditedItemQuantity] = useState('');
     const [editedItemImage, setEditedItemImage] = useState('');
+    const [editedPrice, setEditedPrice] = useState('');
 
 
     useEffect(() => {
@@ -40,6 +42,7 @@ function AdminPage() {
             setEditedItemDescription(selectedItem.description);
             setEditedItemQuantity(selectedItem.quantity);
             setEditedItemImage(selectedItem.image_path);
+            setEditedPrice(selectedItem.price);
             setShowEditModal(true);
         }
     };
@@ -73,7 +76,8 @@ function AdminPage() {
             name: itemName,
             description: itemDescription,
             quantity: itemQuantity,
-            image_path: itemImage
+            image_path: itemImage,
+            price: price
         };
 
         axios.post('http://127.0.0.1:8000/api/add', newItem)
@@ -84,6 +88,7 @@ function AdminPage() {
                 setItemDescription('');
                 setItemQuantity('');
                 setItemImage('');
+                setPrice('');
             })
             .catch(error => {
                 console.error('Error adding item:', error);
@@ -95,7 +100,8 @@ function AdminPage() {
             name: editedItemName,
             description: editedItemDescription,
             quantity: editedItemQuantity,
-            image_path: editedItemImage
+            image_path: editedItemImage,
+            price: editedPrice
         };
 
         console.log('Edited Item:', editedItem);
@@ -137,6 +143,10 @@ function AdminPage() {
                     <label htmlFor="itemQuantity" className="form-label">Item Quantity</label>
                     <input type="number" className="form-control" id="itemQuantity" value={itemQuantity} onChange={(e) => setItemQuantity(e.target.value)} required />
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="price" className="form-label">Price</label>
+                    <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                </div>
                 <button type="submit" className="btn btn-primary">Add Item</button>
             </form>
             <table className="table table-striped">
@@ -146,6 +156,7 @@ function AdminPage() {
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -156,6 +167,7 @@ function AdminPage() {
                             <td>{item.name}</td>
                             <td>{item.description}</td>
                             <td>{item.quantity}</td>
+                            <td>{item.price}</td>
                             <td>
                                 <button className="btn btn-warning me-2" onClick={() => handleEdit(item.id)}>Edit</button>
                                 <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
@@ -185,6 +197,10 @@ function AdminPage() {
                     <div className="mb-3">
                         <label htmlFor="editedItemQuantity" className="form-label">Item Quantity</label>
                         <input type="number" className="form-control" id="editedItemQuantity" value={editedItemQuantity} onChange={(e) => setEditedItemQuantity(e.target.value)} required />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="editedPrice" className="form-label">Price</label>
+                        <input type="number" className="form-control" id="editedPrice" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} required />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

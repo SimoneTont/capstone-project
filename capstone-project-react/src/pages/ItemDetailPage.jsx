@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from "../api/axios"; 
+import axios from "../api/axios";
 import { Navigate } from 'react-router-dom';
 
 function ItemDetailPage() {
@@ -13,6 +13,8 @@ function ItemDetailPage() {
     const [item, setItem] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [availableQuantity, setAvailableQuantity] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         axios.get(`http://127.0.0.1:8000/api/items/${itemId}`)
@@ -20,22 +22,30 @@ function ItemDetailPage() {
                 const itemData = response.data;
                 setItem(itemData);
                 setAvailableQuantity(itemData.quantity);
+                setPrice(itemData.price);
+                setTotalPrice(itemData.price);
             })
             .catch(error => {
                 console.error('Error fetching item details: ', error);
             });
     }, [itemId]);
 
+    useEffect(() => {
+        if (item) {
+            setTotalPrice(item.price * quantity);
+        }
+    }, [item, quantity]);
+
     const handleAddToCart = () => {
         if (!item || quantity < 1) {
             console.error('Invalid item or quantity');
             return;
         }
-    
+
         axios.post(`http://127.0.0.1:8000/api/items/${itemId}/cart`, {
             quantity,
             user_id: userID,
-            
+            price: totalPrice
         })
         .then(response => {
             window.location.reload();
@@ -44,7 +54,7 @@ function ItemDetailPage() {
             console.error('Error adding item to cart: ', error);
         });
     };
-    
+
     return (
         <div className="PageDiv">
             <h1>Item Details</h1>
@@ -57,9 +67,11 @@ function ItemDetailPage() {
                         <p className='card-text'>{item.price} €</p>
                         <p>Available Copies: {availableQuantity}</p>
                         {/* Button triggering modal */}
-                        {isLoggedIn && (<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Add to Cart
-                        </button>)}
+                        {isLoggedIn && (
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Add to Cart
+                            </button>
+                        )}
                     </div>
                 </div>
             ) : (
@@ -76,6 +88,7 @@ function ItemDetailPage() {
                         </div>
                         <div className="modal-body">
                             <p>Are you sure you want to add {item?.name} to your cart?</p>
+                            <p>Total Price: {totalPrice} €</p>
                             <div className="mb-3">
                                 <label htmlFor="quantityInput" className="form-label">Quantity:</label>
                                 <input
