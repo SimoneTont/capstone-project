@@ -118,4 +118,17 @@ class CartItemsController extends Controller
             return response()->json(['message' => 'Failed to checkout: ' . $e->getMessage()], 500);
         }
     }
+
+    public function deleteByUserId($userId)
+    {
+        try {
+            $cartItems = CartItem::where('user_id', $userId)->get();
+            foreach ($cartItems as $cartItem) {
+                $cartItem->delete();
+            }
+            return response()->json(['message' => 'Cart items deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete cart items'], 500);
+        }
+    }
 }

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CartItemsController;
+use App\Http\Controllers\SoldItemsController;
+use App\Models\SoldItem;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,7 @@ Route::post('items/{id}/cart', [ItemController::class, 'cart']); //Send to cart
 Route::get('/cart-items', [CartItemsController::class, 'index']); //Cart items list
 Route::get('/cart-items/{id}', [CartItemsController::class, 'show']); //Cart items of a given user
 Route::post('/cart-items/{id}/checkout', [CartItemsController::class, 'checkout']); //Checkout
+Route::delete('/cart-items/{userId}', [CartItemsController::class, 'deleteByUserId'])->middleware('auth'); //Empty cart
 
 //Email routes
 Route::post('/send-email', [ContactController::class, 'send']); //Contact
@@ -38,3 +41,6 @@ Route::post('/send-email', [ContactController::class, 'send']); //Contact
 Route::post('/add', [ItemController::class, 'store']); //Add
 Route::put('/edit/{id}', [ItemController::class, 'update']); //Edit
 Route::delete('/delete/{id}', [ItemController::class, 'destroy']); //Delete
+
+//Orders
+Route::get('/orders/{id}', [SoldItemsController::class, 'index']); //List of orders of a given user
