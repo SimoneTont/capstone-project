@@ -63,9 +63,9 @@ class ItemController extends Controller
         return response()->json(['message' => 'Item deleted'], 200);
     }
 
-    public function buy(Request $request, $id)
+    public function cart(Request $request, $id)
     {
-        $data = $request->only(['user_id', 'quantity']);
+        $data = $request->only(['user_id', 'quantity', 'price']);
         $data['item_id'] = $id;
 
         try {

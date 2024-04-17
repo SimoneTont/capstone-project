@@ -31,18 +31,19 @@ function HomePage() {
 
     return (
         <div className='PageDiv'>
-            <h1 className="mb-4">Welcome to the Home Page, {isLoggedIn ? user.name : 'Guest'}</h1>
+            <h1 className="mb-4">Welcome to the Home Page, {isLoggedIn && user.name ? user.name : 'Guest'}</h1>
             {isAdmin && (
                 <p className="text-muted">Logged in as admin</p>
             )}
             <div className="d-flex flex-wrap">
                 {items.map(item => (
-                    <div className="card m-2" key={item.id}>
+                    <div className="m-2" key={item.id}>
                         <img src={item.image_path} className="card-img-top" alt={"img" + item.id} />
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{truncateText(item.description, 30)}</p>
                             <p className="card-text">Quantity: {item.quantity}</p>
+                            <p className="card-text">Price: {item.price} €</p>
                             <a href={"/detail/"+item.id} className="btn btn-primary">Details</a>
                         </div>
                     </div>

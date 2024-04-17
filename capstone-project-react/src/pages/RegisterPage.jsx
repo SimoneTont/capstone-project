@@ -31,7 +31,8 @@ function RegisterPage() {
         password_confirmation,
       });
       if (response.status === 200) {
-        dispatch(loginSuccess(response.data));
+        const userData = response.data;
+        dispatch(loginSuccess({ user: userData }));
         console.log("Registration success:", response);
       }
     } catch (error) {

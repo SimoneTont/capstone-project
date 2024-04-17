@@ -12,16 +12,18 @@ class CreateItemsTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->string('image_path')->nullable();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('quantity')->default(0);
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('items', function (Blueprint $table) {
+        $table->id();
+        $table->string('image_path')->nullable();
+        $table->string('name');
+        $table->text('description')->nullable();
+        $table->integer('quantity')->default(0);
+        $table->decimal('price', 8, 2)->default(0); // Add 'price' column
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

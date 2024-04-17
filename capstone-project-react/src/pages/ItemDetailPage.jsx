@@ -32,9 +32,10 @@ function ItemDetailPage() {
             return;
         }
     
-        axios.post(`http://127.0.0.1:8000/api/items/${itemId}/buy`, {
+        axios.post(`http://127.0.0.1:8000/api/items/${itemId}/cart`, {
             quantity,
-            user_id: userID
+            user_id: userID,
+            
         })
         .then(response => {
             window.location.reload();
@@ -53,6 +54,7 @@ function ItemDetailPage() {
                     <div className="card-body">
                         <h5 className="card-title">{item.name}</h5>
                         <p className="card-text">{item.description}</p>
+                        <p className='card-text'>{item.price} €</p>
                         <p>Available Copies: {availableQuantity}</p>
                         {/* Button triggering modal */}
                         {isLoggedIn && (<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

@@ -26,6 +26,7 @@ class ItemFactory extends Factory
             'description' => $this->faker->sentence,
             'image_path' => 'https://picsum.photos/id/' . $this->faker->numberBetween(1, 60) . '/200/300',
             'quantity' => $this->faker->numberBetween(100, 200),
+            'price' => $this->faker->randomFloat(2, 10, 100)
         ];
     }
 }

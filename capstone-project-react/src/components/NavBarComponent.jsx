@@ -46,8 +46,8 @@ function NavBarComponent() {
             {isAdmin && (<Nav.Link as={Link} to="/admin" className={isNavLinkActive('/admin') ? 'fw-bolder' : ''}>Admin</Nav.Link>)}
           </Nav>
           {isLoggedIn && (
-            <Nav.Link as={Link} to="/login"> 
-            <Button variant="outline-danger" onClick={handleLogout} >Logout</Button>
+            <Nav.Link as={Link} to="/login">
+              <Button variant="outline-danger" onClick={handleLogout} >Logout</Button>
             </Nav.Link>
           )}
         </Navbar.Collapse>

@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 //Item routes
 Route::get('/items', [ItemController::class, 'index']); //List
 Route::get('/items/{id}', [ItemController::class, 'show']); //Details
-Route::post('items/{id}/buy', [ItemController::class, 'buy']); //Buy
+Route::post('items/{id}/cart', [ItemController::class, 'cart']); //Send to cart
 
 //Cart routes
 Route::get('/cart-items', [CartItemsController::class, 'index']); //Cart items list

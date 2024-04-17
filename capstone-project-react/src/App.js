@@ -11,7 +11,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import AboutPage from './pages/AboutPage';
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
-import ItemPage from './pages/ItemPage';
 import ContactPage from './pages/ContactPage';
 import ErrorPage from './pages/ErrorPage';
 import OrdersPage from './pages/OrdersPage';
@@ -36,7 +35,6 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/items" element={<ItemPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<OrdersPage />} />
