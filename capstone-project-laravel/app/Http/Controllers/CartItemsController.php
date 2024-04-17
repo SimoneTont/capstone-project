@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\CartItem;
+use App\Models\SoldItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartItemsController extends Controller
 {
@@ -67,6 +70,52 @@ class CartItemsController extends Controller
             return response()->json(['cartItems' => $transformedCartItems], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to retrieve cart items', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function checkout(Request $request, $userId)
+    {
+        // Validate the request data (optional)
+        $request->validate([
+            'cartItems' => 'required|array',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // Retrieve cart items data from the request
+            $cartItems = $request->input('cartItems');
+
+            // Iterate over cart items and add them to the sold_items table
+            foreach ($cartItems as $cartItem) {
+                $itemId = $cartItem['item_id'];
+                $quantity = $cartItem['quantity'];
+
+                // Find the item and check if enough quantity is available
+                $item = Item::findOrFail($itemId);
+                if ($item->quantity < $quantity) {
+                    throw new \Exception("Insufficient quantity for item: {$item->name}");
+                }
+
+                // Create a new SoldItem record
+                SoldItem::create([
+                    'user_id' => $userId,
+                    'item_id' => $itemId,
+                    'quantity' => $quantity,
+                    'amount_paid' => $item->price * $quantity, // Assuming price is retrieved from the Item model
+                ]);
+
+                // Update the quantity of the item in the items table
+                $item->quantity -= $quantity;
+                $item->save();
+            }
+
+            DB::commit();
+
+            return response()->json(['message' => 'Checkout successful'], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => 'Failed to checkout: ' . $e->getMessage()], 500);
         }
     }
 }

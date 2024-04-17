@@ -25,7 +25,7 @@ function CartPage() {
     }, [isLoggedIn, userId]);
 
     const handleCheckout = async () => {
-        /* try {
+        try {
             const response = await axios.post(`http://127.0.0.1:8000/api/cart-items/${userId}/checkout`, {
                 userId,
                 cartItems
@@ -34,9 +34,8 @@ function CartPage() {
 
         } catch (error) {
             console.error('Error during checkout:', error);
-        } */
-        console.log(cartItems);
-        console.log(userId);
+        }
+        console.log(cartItems, userId);
     };
 
     if (!isLoggedIn) {
@@ -115,10 +114,11 @@ function CartPage() {
                         ))}
                     </tbody>
                 </table>
-                <div className="mb-3 d-flex">
+                {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) === 0 && <p>No items in the cart.</p>}
+                {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) > 0 && <div className="mb-3 d-flex">
                     <p>Total price: {calculateTotalOrderPrice(aggregateItemsByName(cartItems))} €</p>
                     <Button variant="primary" onClick={handleCheckout} className="ms-auto">Checkout</Button>
-                </div>
+                </div>} 
             </div>
         </div>
     );
