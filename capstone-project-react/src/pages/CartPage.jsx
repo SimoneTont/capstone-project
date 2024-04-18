@@ -34,7 +34,7 @@ function CartPage() {
             });
             console.log('Purchase successful:', response.data);
 
-            await axios.delete(`http://127.0.0.1:8000/api/cart-items/${userId}`);
+            await axios.delete(`http://127.0.0.1:8000/api/cart-items/${userId}/empty`);
             console.log('Cart items cleared successfully.');
 
             setCartItems([]);
