@@ -160,19 +160,19 @@ class CartItemsController extends Controller
     }
 }
 
-public function destroy($id)
+public function destroy($id, Request $request)
 {
     try {
         $cartItem = CartItem::findOrFail($id);
 
-        $quantity = $cartItem->quantity;
+        $quantityAdd = $cartItem->quantity;
 
         $item = Item::findOrFail($cartItem->item_id);
 
         DB::beginTransaction();
 
         try {
-            $item->stock += $quantity;
+            $item->quantity += $quantityAdd;
             $item->save();
 
             $cartItem->delete();
@@ -194,4 +194,15 @@ public function destroy($id)
         return response()->json(['message' => 'Internal server error'], 500);
     }
 }
+
+/* public function destroy($id)
+    {
+        try {
+            $cartItem = CartItem::findOrFail($id);
+            $cartItem->delete();
+            return response()->json(['message' => 'Cart item deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete cart item'], 500);
+        }
+    } */
 }
