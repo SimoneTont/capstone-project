@@ -54,7 +54,7 @@ function ItemDetailPage() {
                         <h5 className="card-title">{item.name}</h5>
                         <p className="card-text">{item.description}</p>
                         <p className='card-text'>{item.price} €</p>
-                        <p>Available Copies: {item.quantity}</p> {/* Display available quantity */}
+                        <p>Available Copies: {item.quantity}</p>
                         {isLoggedIn && (
                             <CartButtonComponent
                                 item={item}

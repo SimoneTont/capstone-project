@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
-const CartButtonComponent = ({ item, totalPrice, initialQuantity, handleAddToCart }) => {
+const CartItem = ({ item, handleAddToCart }) => {
     const [showModal, setShowModal] = useState(false);
-    const [quantity, setQuantity] = useState(initialQuantity);
+    const [quantity, setQuantity] = useState(1);
 
     const openModal = () => {
         setShowModal(true);
-        setQuantity(initialQuantity);
     };
 
-    const closeModal = () => setShowModal(false);
+    const closeModal = () => {
+        setShowModal(false);
+        setQuantity(1);
+    };
 
     const handleQuantityChange = (e) => {
         const newQuantity = parseInt(e.target.value);
@@ -19,8 +21,7 @@ const CartButtonComponent = ({ item, totalPrice, initialQuantity, handleAddToCar
     };
 
     const handleAddToCartClick = () => {
-        const calculatedPrice = item.price * quantity;
-        handleAddToCart(item.id, quantity, calculatedPrice);
+        handleAddToCart(item.id, quantity, item.price);
         closeModal();
     };
 
@@ -39,11 +40,11 @@ const CartButtonComponent = ({ item, totalPrice, initialQuantity, handleAddToCar
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Add {item?.name} to Cart</h5>
+                                <h5 className="modal-title">Add {item.name} to Cart</h5>
                                 <button type="button" className="btn-close" onClick={closeModal} aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                <p>Are you sure you want to add {item?.name} to your cart?</p>
+                                <p>Are you sure you want to add {item.name} to your cart?</p>
                                 <p>Total Price: {item.price * quantity} €</p>
                                 <div className="mb-3">
                                     <label htmlFor="quantityInput" className="form-label">Quantity:</label>
@@ -69,4 +70,4 @@ const CartButtonComponent = ({ item, totalPrice, initialQuantity, handleAddToCar
     );
 };
 
-export default CartButtonComponent;
+export default CartItem;
