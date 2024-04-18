@@ -107,7 +107,7 @@ function CartPage() {
                                 <p className="card-text">{truncateText(item.description, 30)}</p>
                                 <p className="card-text">Quantity: {item.quantity}</p>
                                 <p className="card-text">Price: {item.price / 100} €</p>
-                                <EditButton itemId={item.id} unitaryPrice={item.price/item.quantity} />
+                                <EditButton itemId={item.id} unitaryPrice={item.price / item.quantity} />
                                 <DeleteButton itemId={item.id} quantity={item.quantity} />
                             </div>
                         </div>
@@ -136,7 +136,11 @@ function CartPage() {
                     </tbody>
                 </table>
                 <div className="mb-3 d-flex">
-                    <p>Total price: {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) / 100} €</p>
+                    {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) > 0 && (
+                        <>
+                            <p>Total cost: {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) / 100} €</p>
+                        </>
+                    )}
                     <Button variant="primary" onClick={handleCheckout} className="ms-auto">
                         Checkout
                     </Button>

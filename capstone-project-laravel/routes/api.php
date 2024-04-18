@@ -34,7 +34,7 @@ Route::get('/cart-items/{id}', [CartItemsController::class, 'show']); //Cart ite
 Route::post('/cart-items/{id}/checkout', [CartItemsController::class, 'checkout']); //Checkout
 Route::put('/cart-items/{id}', [CartItemsController::class, 'update']); //Update
 Route::delete('/cart-items/{id}', [CartItemsController::class, 'destroy']); //Delete
-Route::delete('/cart-items/{userId}', [CartItemsController::class, 'deleteByUserId']); //Empty cart
+Route::delete('/cart-items/{id}', [CartItemsController::class, 'deleteByUserId']); //Empty cart
 
 //Email routes
 Route::post('/send-email', [ContactController::class, 'send']); //Contact

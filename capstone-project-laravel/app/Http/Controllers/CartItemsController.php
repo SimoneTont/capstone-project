@@ -195,14 +195,4 @@ public function destroy($id, Request $request)
     }
 }
 
-/* public function destroy($id)
-    {
-        try {
-            $cartItem = CartItem::findOrFail($id);
-            $cartItem->delete();
-            return response()->json(['message' => 'Cart item deleted successfully'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to delete cart item'], 500);
-        }
-    } */
 }

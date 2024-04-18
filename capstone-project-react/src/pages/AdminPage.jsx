@@ -161,7 +161,7 @@ function AdminPage() {
                             <td>{item.name}</td>
                             <td>{item.description}</td>
                             <td>{item.quantity}</td>
-                            <td>${(item.price / 100).toFixed(2)}</td>
+                            <td>{(item.price / 100).toFixed(2)}</td>
                             <td>
                                 <button className="btn btn-warning me-2" onClick={() => handleEdit(item.id)}>Edit</button>
                                 <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
