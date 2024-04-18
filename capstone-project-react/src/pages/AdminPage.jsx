@@ -125,7 +125,6 @@ function AdminPage() {
     return (
         <div className='PageDiv'>
             <h1>Admin Page</h1>
-            {/* Add item form */}
             <form onSubmit={handleAddItem} className="mb-3">
                 <div className="mb-3">
                     <label htmlFor="itemName" className="form-label">Item Name</label>
@@ -176,7 +175,6 @@ function AdminPage() {
                     ))}
                 </tbody>
             </table>
-            {/* Edit Item Modal */}
             <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Item</Modal.Title>
