@@ -75,37 +75,30 @@ class CartItemsController extends Controller
 
     public function checkout(Request $request, $userId)
     {
-        // Validate the request data (optional)
         $request->validate([
             'cartItems' => 'required|array',
         ]);
 
         try {
             DB::beginTransaction();
-
-            // Retrieve cart items data from the request
             $cartItems = $request->input('cartItems');
 
-            // Iterate over cart items and add them to the sold_items table
             foreach ($cartItems as $cartItem) {
                 $itemId = $cartItem['item_id'];
                 $quantity = $cartItem['quantity'];
 
-                // Find the item and check if enough quantity is available
                 $item = Item::findOrFail($itemId);
                 if ($item->quantity < $quantity) {
                     throw new \Exception("Insufficient quantity for item: {$item->name}");
                 }
 
-                // Create a new SoldItem record
                 SoldItem::create([
                     'user_id' => $userId,
                     'item_id' => $itemId,
                     'quantity' => $quantity,
-                    'amount_paid' => $item->price * $quantity, // Assuming price is retrieved from the Item model
+                    'amount_paid' => $item->price * $quantity,
                 ]);
 
-                // Update the quantity of the item in the items table
                 $item->quantity -= $quantity;
                 $item->save();
             }
@@ -129,6 +122,34 @@ class CartItemsController extends Controller
             return response()->json(['message' => 'Cart items deleted successfully'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to delete cart items'], 500);
+        }
+    }
+
+    public function update($id)
+    {
+        try {
+            // Example: Update cart item logic (you can customize this based on your requirements)
+            // Here, $id is the ID of the cart item you want to update
+
+            // Placeholder code: Just return a success message
+            return response()->json(['message' => 'Cart item updated successfully'], 200);
+        } catch (\Exception $e) {
+            // Handle any exceptions or errors
+            return response()->json(['message' => 'Failed to update cart item'], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            // Example: Delete cart item logic (you can customize this based on your requirements)
+            // Here, $id is the ID of the cart item you want to delete
+
+            // Placeholder code: Just return a success message
+            return response()->json(['message' => 'Cart item deleted successfully'], 200);
+        } catch (\Exception $e) {
+            // Handle any exceptions or errors
+            return response()->json(['message' => 'Failed to delete cart item'], 500);
         }
     }
 }

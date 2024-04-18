@@ -21,7 +21,6 @@ function AdminPage() {
     const [editedItemImage, setEditedItemImage] = useState('');
     const [editedPrice, setEditedPrice] = useState('');
 
-
     useEffect(() => {
         if (isAdmin) {
             axios.get('http://127.0.0.1:8000/api/items')
@@ -42,11 +41,10 @@ function AdminPage() {
             setEditedItemDescription(selectedItem.description);
             setEditedItemQuantity(selectedItem.quantity);
             setEditedItemImage(selectedItem.image_path);
-            setEditedPrice(selectedItem.price);
+            setEditedPrice(selectedItem.price / 100);
             setShowEditModal(true);
         }
     };
-
 
     const handleDelete = (itemId) => {
         axios.delete(`http://127.0.0.1:8000/api/delete/${itemId}`)
@@ -77,7 +75,7 @@ function AdminPage() {
             description: itemDescription,
             quantity: itemQuantity,
             image_path: itemImage,
-            price: price
+            price: parseFloat(price) * 100,
         };
 
         axios.post('http://127.0.0.1:8000/api/add', newItem)
@@ -101,10 +99,8 @@ function AdminPage() {
             description: editedItemDescription,
             quantity: editedItemQuantity,
             image_path: editedItemImage,
-            price: editedPrice
+            price: parseFloat(editedPrice) * 100,
         };
-
-        console.log('Edited Item:', editedItem);
 
         axios.put(`http://127.0.0.1:8000/api/edit/${editItemId}`, editedItem)
             .then(response => {
@@ -116,7 +112,6 @@ function AdminPage() {
                 console.error('Error editing item:', error);
             });
     };
-
 
     if (!isAdmin) {
         return <Navigate to="/" />;
@@ -143,8 +138,8 @@ function AdminPage() {
                     <input type="number" className="form-control" id="itemQuantity" value={itemQuantity} onChange={(e) => setItemQuantity(e.target.value)} required />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="price" className="form-label">Price</label>
-                    <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                    <label htmlFor="price" className="form-label">Price (in euros)</label>
+                    <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} step="0.01" required />
                 </div>
                 <button type="submit" className="btn btn-primary">Add Item</button>
             </form>
@@ -155,7 +150,7 @@ function AdminPage() {
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Price (in euros)</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -166,7 +161,7 @@ function AdminPage() {
                             <td>{item.name}</td>
                             <td>{item.description}</td>
                             <td>{item.quantity}</td>
-                            <td>{item.price}</td>
+                            <td>${(item.price / 100).toFixed(2)}</td>
                             <td>
                                 <button className="btn btn-warning me-2" onClick={() => handleEdit(item.id)}>Edit</button>
                                 <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
@@ -197,8 +192,8 @@ function AdminPage() {
                         <input type="number" className="form-control" id="editedItemQuantity" value={editedItemQuantity} onChange={(e) => setEditedItemQuantity(e.target.value)} required />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="editedPrice" className="form-label">Price</label>
-                        <input type="number" className="form-control" id="editedPrice" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} required />
+                        <label htmlFor="editedPrice" className="form-label">Price (in euros)</label>
+                        <input type="number" className="form-control" id="editedPrice" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} step="0.01" required />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

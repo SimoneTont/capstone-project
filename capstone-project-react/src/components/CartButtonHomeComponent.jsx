@@ -45,7 +45,7 @@ const CartItem = ({ item, handleAddToCart }) => {
                             </div>
                             <div className="modal-body">
                                 <p>Are you sure you want to add {item.name} to your cart?</p>
-                                <p>Total Price: {item.price * quantity} €</p>
+                                <p>Total Price: {item.price * quantity / 100} €</p>
                                 <div className="mb-3">
                                     <label htmlFor="quantityInput" className="form-label">Quantity:</label>
                                     <input

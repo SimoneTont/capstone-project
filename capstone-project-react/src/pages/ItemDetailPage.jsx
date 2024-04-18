@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from "../api/axios";
-import CartButtonComponent from '../components/CartButtonComponent';
+import CartButtonComponent from '../components/CartButtonDetailComponent';
 
 function ItemDetailPage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const userID = useSelector(state => state.auth.user ? state.auth.user.id : null);
-    const dispatch = useDispatch();
 
     const { itemId } = useParams();
     const [item, setItem] = useState(null);
@@ -25,7 +24,7 @@ function ItemDetailPage() {
             });
     }, [itemId]);
 
-    const handleAddToCart = (quantity) => {
+    const handleAddToCart = (itemId, quantity, price) => {
         if (!item || quantity < 1) {
             console.error('Invalid item or quantity');
             return;
@@ -34,7 +33,7 @@ function ItemDetailPage() {
         axios.post(`http://127.0.0.1:8000/api/items/${itemId}/cart`, {
             quantity,
             user_id: userID,
-            price: totalPrice * quantity
+            price
         })
         .then(response => {
             window.location.reload();
@@ -53,13 +52,11 @@ function ItemDetailPage() {
                     <div className="card-body">
                         <h5 className="card-title">{item.name}</h5>
                         <p className="card-text">{item.description}</p>
-                        <p className='card-text'>{item.price} €</p>
+                        <p className='card-text'>{item.price / 100} €</p>
                         <p>Available Copies: {item.quantity}</p>
                         {isLoggedIn && (
                             <CartButtonComponent
                                 item={item}
-                                totalPrice={totalPrice}
-                                initialQuantity={1}
                                 handleAddToCart={handleAddToCart}
                             />
                         )}

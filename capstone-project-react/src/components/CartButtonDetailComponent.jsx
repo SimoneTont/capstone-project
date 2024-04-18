@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
-const CartButtonComponent = ({ item, totalPrice, initialQuantity, handleAddToCart }) => {
+const CartButtonComponent = ({ item, handleAddToCart }) => {
     const [showModal, setShowModal] = useState(false);
-    const [quantity, setQuantity] = useState(initialQuantity);
+    const [quantity, setQuantity] = useState(1);
 
     const openModal = () => {
         setShowModal(true);
-        setQuantity(initialQuantity);
+        setQuantity(1);
     };
 
-    const closeModal = () => setShowModal(false);
+    const closeModal = () => {
+        setShowModal(false);
+    };
 
     const handleQuantityChange = (e) => {
         const newQuantity = parseInt(e.target.value);
@@ -19,7 +21,7 @@ const CartButtonComponent = ({ item, totalPrice, initialQuantity, handleAddToCar
     };
 
     const handleAddToCartClick = () => {
-        const calculatedPrice = item.price * quantity;
+        const calculatedPrice = item.price * quantity / 100;
         handleAddToCart(item.id, quantity, calculatedPrice);
         closeModal();
     };
@@ -44,7 +46,7 @@ const CartButtonComponent = ({ item, totalPrice, initialQuantity, handleAddToCar
                             </div>
                             <div className="modal-body">
                                 <p>Are you sure you want to add {item?.name} to your cart?</p>
-                                <p>Total Price: {item.price * quantity} €</p>
+                                <p>Total Price: {(item.price * quantity / 100).toFixed(2)} €</p>
                                 <div className="mb-3">
                                     <label htmlFor="quantityInput" className="form-label">Quantity:</label>
                                     <input

@@ -46,7 +46,7 @@ function OrdersPage() {
                             <tr key={order.id}>
                                 <td>{order.item.name}</td>
                                 <td>{order.quantity}</td>
-                                <td>{order.amount_paid} €</td>
+                                <td>{order.amount_paid/100} €</td>
                             </tr>
                         ))}
                     </tbody>

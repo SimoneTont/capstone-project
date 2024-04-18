@@ -32,11 +32,9 @@ function CartPage() {
             });
             console.log('Purchase successful:', response.data);
 
-            // After successful checkout, clear the cart items for the current user
             await axios.delete(`http://127.0.0.1:8000/api/cart-items/${userId}`);
             console.log('Cart items cleared successfully.');
 
-            // Refresh cart items list
             setCartItems([]);
         } catch (error) {
             console.error('Error during checkout:', error);
@@ -49,22 +47,37 @@ function CartPage() {
 
     function aggregateItemsByName(items) {
         const aggregated = {};
+
         items.forEach(item => {
             const { id, name, description, image_path, quantity, price } = item;
+
+            // Calculate unit price for the item
+            const unitPrice = price / quantity;
+
             if (aggregated[name]) {
                 aggregated[name].quantity += quantity;
+                aggregated[name].totalPrice += price;
             } else {
-                aggregated[name] = { id, name, description, image_path, quantity, price };
+                aggregated[name] = {
+                    id,
+                    name,
+                    description,
+                    image_path,
+                    quantity,
+                    totalPrice: price,
+                    unitPrice // Store the unit price for the item
+                };
             }
         });
+
         return Object.values(aggregated);
     }
 
     function calculateTotalOrderPrice(items) {
         let total = 0;
         items.forEach(item => {
-            if (item.price) {
-                total += item.quantity * item.price;
+            if (item.totalPrice) {
+                total += item.totalPrice;
             }
         });
         return total;
@@ -92,7 +105,7 @@ function CartPage() {
                                 <h5 className="card-title">{item.name}</h5>
                                 <p className="card-text">{truncateText(item.description, 30)}</p>
                                 <p className="card-text">Quantity: {item.quantity}</p>
-                                <p className="card-text">Price: {item.price} €</p>
+                                <p className="card-text">Price: {item.price / 100} €</p>
                             </div>
                         </div>
                     ))
@@ -114,14 +127,16 @@ function CartPage() {
                             <tr key={item.name}>
                                 <td>{item.name}</td>
                                 <td>{item.quantity}</td>
-                                <td>{item.price ? `${item.quantity * item.price} €` : 'N/A'}</td>
+                                <td>{item.totalPrice ? `${item.totalPrice / 100} €` : 'N/A'}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
                 <div className="mb-3 d-flex">
-                    <p>Total price: {calculateTotalOrderPrice(aggregateItemsByName(cartItems))} €</p>
-                    <Button variant="primary" onClick={handleCheckout} className="ms-auto">Checkout</Button>
+                    <p>Total price: {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) / 100} €</p>
+                    <Button variant="primary" onClick={handleCheckout} className="ms-auto">
+                        Checkout
+                    </Button>
                 </div>
             </div>
         </div>

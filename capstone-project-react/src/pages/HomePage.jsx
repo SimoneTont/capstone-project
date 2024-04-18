@@ -2,8 +2,7 @@ import '../css/HomePage.css';
 import React, { useState, useEffect } from 'react';
 import axios from "../api/axios";
 import { useDispatch, useSelector } from 'react-redux';
-import CartItem from '../components/CartItemComponent';
-import CartButtonComponent from '../components/CartButtonComponent';
+import CartItem from '../components/CartButtonHomeComponent';
 
 function HomePage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -65,7 +64,7 @@ function HomePage() {
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{truncateText(item.description, 30)}</p>
                             <p className="card-text">Quantity: {item.quantity}</p>
-                            <p className="card-text">Price: {item.price} €</p>
+                            <p className="card-text">Price: {item.price/100} €</p>
                             {isLoggedIn && (
                                 <CartItem
                                     item={item}
