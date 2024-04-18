@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\CartItem;
 use App\Models\SoldItem;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -127,30 +128,70 @@ class CartItemsController extends Controller
     }
 
     public function update($id, Request $request)
-    {
-        try {
-            $cartItem = CartItem::findOrFail($id);
+{
+    try {
+        $cartItem = CartItem::findOrFail($id);
 
-            $validatedData = $request->validate([
-                'quantity' => 'required|integer|min:1',
-            ]);
+        $validatedData = $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-            $cartItem->update($validatedData);
+        $oldQuantity = $cartItem->quantity;
+        $newQuantity = $validatedData['quantity'];
 
-            return response()->json(['message' => 'Cart item updated successfully', 'data' => $cartItem], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to update cart item'], 500);
+        $quantityDifference = $newQuantity - $oldQuantity;
+
+        $cartItem->update(['quantity' => $newQuantity]);
+
+        if ($quantityDifference != 0) {
+            $item = Item::findOrFail($cartItem->item_id);
+            
+            $item->decrement('quantity', $quantityDifference);
         }
-    }
 
-    public function destroy($id)
-    {
+        $unitPrice = $cartItem->price / $oldQuantity;
+        $newPrice = $unitPrice * $newQuantity;
+
+        $cartItem->update(['price' => $newPrice]);
+
+        return response()->json(['message' => 'Cart item updated successfully', 'data' => $cartItem], 200);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to update cart item'], 500);
+    }
+}
+
+public function destroy($id)
+{
+    try {
+        $cartItem = CartItem::findOrFail($id);
+
+        $quantity = $cartItem->quantity;
+
+        $item = Item::findOrFail($cartItem->item_id);
+
+        DB::beginTransaction();
+
         try {
-            $cartItem = CartItem::findOrFail($id);
+            $item->stock += $quantity;
+            $item->save();
+
             $cartItem->delete();
+
+            DB::commit();
+
             return response()->json(['message' => 'Cart item deleted successfully'], 200);
+
         } catch (\Exception $e) {
+
+            DB::rollBack();
             return response()->json(['message' => 'Failed to delete cart item'], 500);
         }
+
+    } catch (ModelNotFoundException $e) {
+        return response()->json(['message' => 'Cart item not found'], 404);
+
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Internal server error'], 500);
     }
+}
 }

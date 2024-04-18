@@ -107,8 +107,8 @@ function CartPage() {
                                 <p className="card-text">{truncateText(item.description, 30)}</p>
                                 <p className="card-text">Quantity: {item.quantity}</p>
                                 <p className="card-text">Price: {item.price / 100} €</p>
-                                <EditButton itemId={item.id} />
-                                <DeleteButton itemId={item.id} />
+                                <EditButton itemId={item.id} unitaryPrice={item.price/item.quantity} />
+                                <DeleteButton itemId={item.id} quantity={item.quantity} />
                             </div>
                         </div>
                     ))
