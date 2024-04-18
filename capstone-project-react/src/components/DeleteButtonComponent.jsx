@@ -7,6 +7,7 @@ const DeleteButton = ({ itemId }) => {
         try {
             const response = await axios.delete(`http://127.0.0.1:8000/api/cart-items/${itemId}`);
             console.log('Cart item deleted:', response.data);
+            window.location.reload();
         } catch (error) {
             console.error('Error deleting cart item:', error);
         }

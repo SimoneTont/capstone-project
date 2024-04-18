@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\SoldItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CartItemsController extends Controller
 {
@@ -125,16 +126,19 @@ class CartItemsController extends Controller
         }
     }
 
-    public function update($id)
+    public function update($id, Request $request)
     {
         try {
-            // Example: Update cart item logic (you can customize this based on your requirements)
-            // Here, $id is the ID of the cart item you want to update
+            $cartItem = CartItem::findOrFail($id);
 
-            // Placeholder code: Just return a success message
-            return response()->json(['message' => 'Cart item updated successfully'], 200);
+            $validatedData = $request->validate([
+                'quantity' => 'required|integer|min:1',
+            ]);
+
+            $cartItem->update($validatedData);
+
+            return response()->json(['message' => 'Cart item updated successfully', 'data' => $cartItem], 200);
         } catch (\Exception $e) {
-            // Handle any exceptions or errors
             return response()->json(['message' => 'Failed to update cart item'], 500);
         }
     }
@@ -142,13 +146,10 @@ class CartItemsController extends Controller
     public function destroy($id)
     {
         try {
-            // Example: Delete cart item logic (you can customize this based on your requirements)
-            // Here, $id is the ID of the cart item you want to delete
-
-            // Placeholder code: Just return a success message
+            $cartItem = CartItem::findOrFail($id);
+            $cartItem->delete();
             return response()->json(['message' => 'Cart item deleted successfully'], 200);
         } catch (\Exception $e) {
-            // Handle any exceptions or errors
             return response()->json(['message' => 'Failed to delete cart item'], 500);
         }
     }

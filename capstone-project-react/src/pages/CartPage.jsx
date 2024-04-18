@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from '../api/axios';
 import { Navigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import DeleteButton from '../components/DeleteButtonComponent';
+import EditButton from '../components/EditButtonComponent';
 
 function CartPage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -51,7 +53,6 @@ function CartPage() {
         items.forEach(item => {
             const { id, name, description, image_path, quantity, price } = item;
 
-            // Calculate unit price for the item
             const unitPrice = price / quantity;
 
             if (aggregated[name]) {
@@ -65,7 +66,7 @@ function CartPage() {
                     image_path,
                     quantity,
                     totalPrice: price,
-                    unitPrice // Store the unit price for the item
+                    unitPrice
                 };
             }
         });
@@ -106,6 +107,8 @@ function CartPage() {
                                 <p className="card-text">{truncateText(item.description, 30)}</p>
                                 <p className="card-text">Quantity: {item.quantity}</p>
                                 <p className="card-text">Price: {item.price / 100} €</p>
+                                <EditButton itemId={item.id} />
+                                <DeleteButton itemId={item.id} />
                             </div>
                         </div>
                     ))
