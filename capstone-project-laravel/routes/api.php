@@ -38,9 +38,9 @@ Route::delete('/cart-items/{userId}', [CartItemsController::class, 'deleteByUser
 Route::post('/send-email', [ContactController::class, 'send']); //Contact
 
 // Admin routes
-Route::post('/add', [ItemController::class, 'store']); //Add
-Route::put('/edit/{id}', [ItemController::class, 'update']); //Edit
-Route::delete('/delete/{id}', [ItemController::class, 'destroy']); //Delete
+Route::post('/add', [ItemController::class, 'store']); //Add an item
+Route::put('/edit/{id}', [ItemController::class, 'update']); //Edit an item
+Route::delete('/delete/{id}', [ItemController::class, 'destroy']); //Delete an item
 
 //Orders
 Route::get('/orders/{id}', [SoldItemsController::class, 'index']); //List of orders of a given user

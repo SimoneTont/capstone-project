@@ -21,7 +21,7 @@ function OrdersPage() {
         };
 
         fetchOrders();
-    }, [isLoggedIn, userId]); // Include userId and isLoggedIn in the dependency array
+    }, [isLoggedIn, userId]);
 
     if (!isLoggedIn) {
         return <Navigate to="/login" />;
