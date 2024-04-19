@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, matchPath } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/authSlice';
 import axios from '../api/axios';
@@ -8,6 +8,7 @@ import axios from '../api/axios';
 function NavBarComponent() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const isAdmin = useSelector(state => state.auth.user ? state.auth.user.isAdmin : false);
+  const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -46,9 +47,15 @@ function NavBarComponent() {
             {isAdmin && (<Nav.Link as={Link} to="/admin" className={isNavLinkActive('/admin') ? 'fw-bolder' : ''}>Admin</Nav.Link>)}
           </Nav>
           {isLoggedIn && (
-            <Nav.Link as={Link} to="/login">
-              <Button variant="outline-danger" className="mr-2 BrownButton" onClick={handleLogout} >Logout</Button>
-            </Nav.Link>
+            <div className="d-flex ms-auto align-items-center">
+              <Nav.Link as={Link} to={`/profile/${user.id}`} 
+              className={`${isNavLinkActive(`/profile/${user.id}`) ? 'fw-bolder' : ''} mx-2`}>
+                Your Profile
+              </Nav.Link>
+              <Nav.Link as={Link} to="/login">
+                <Button variant="outline-danger" className="mr-2 BrownButton" onClick={handleLogout} >Logout</Button>
+              </Nav.Link>
+            </div>
           )}
         </Navbar.Collapse>
       </Container>

@@ -17,6 +17,7 @@ function CartPage() {
                 try {
                     const response = await axios.get(`http://127.0.0.1:8000/api/cart-items/${userId}`);
                     setCartItems(response.data.cartItems);
+                    console.log(response.data.cartItems);
                 } catch (error) {
                     console.error('Error fetching cart items:', error);
                 }
@@ -96,23 +97,6 @@ function CartPage() {
         <div className='PageDiv'>
             <p>Cart</p>
             <div className="d-flex flex-wrap">
-                {cartItems.length === 0 ? (
-                    <p>No items in the cart.</p>
-                ) : (
-                    cartItems.map(item => (
-                        <div className="card m-2" style={{ width: '18rem' }} key={item.id}>
-                            <img src={item.image_path} className="card-img-top" alt={"img" + item.id} />
-                            <div className="card-body">
-                                <h5 className="card-title">{item.name}</h5>
-                                <p className="card-text">{truncateText(item.description, 30)}</p>
-                                <p className="card-text">Quantity: {item.quantity}</p>
-                                <p className="card-text">Price: {item.price / 100} €</p>
-                                <EditButton itemId={item.id} unitaryPrice={item.price / item.quantity} />
-                                <DeleteButton itemId={item.id} quantity={item.quantity} />
-                            </div>
-                        </div>
-                    ))
-                )}
             </div>
             <hr />
             <div>
@@ -120,17 +104,24 @@ function CartPage() {
                 <table className="table">
                     <thead>
                         <tr>
+                            <th>Item Image</th>
                             <th>Item Name</th>
                             <th>Total Quantity</th>
                             <th>Price</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {aggregateItemsByName(cartItems).map(item => (
                             <tr key={item.name}>
+                                <td><div style={{ backgroundImage: `url(${item.image_path})`, backgroundSize: 'cover', width: '30px', height: '30px' }}></div></td>
                                 <td>{item.name}</td>
                                 <td>{item.quantity}</td>
                                 <td>{item.totalPrice ? `${item.totalPrice / 100} €` : 'N/A'}</td>
+                                <td>
+                                    <EditButton item={item} />
+                                    <DeleteButton item={item} />
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -141,7 +132,7 @@ function CartPage() {
                             <p>Total cost: {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) / 100} €</p>
                         </>
                     )}
-                    <Button variant="primary" onClick={handleCheckout} className="ms-auto">
+                    <Button variant="primary" onClick={handleCheckout} className="ms-auto BlueButton">
                         Checkout
                     </Button>
                 </div>

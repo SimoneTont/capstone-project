@@ -141,7 +141,7 @@ function AdminPage() {
                     <label htmlFor="price" className="form-label">Price (in euros)</label>
                     <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} step="0.01" required />
                 </div>
-                <button type="submit" className="btn btn-primary">Add Item</button>
+                <button type="submit" className="btn BlueButton">Add Item</button>
             </form>
             <table className="table table-striped">
                 <thead>
@@ -163,8 +163,8 @@ function AdminPage() {
                             <td>{item.quantity}</td>
                             <td>{(item.price / 100).toFixed(2)}</td>
                             <td>
-                                <button className="btn btn-warning me-2" onClick={() => handleEdit(item.id)}>Edit</button>
-                                <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
+                                <button className="btn BlueButton me-2" onClick={() => handleEdit(item.id)}>Edit</button>
+                                <button className="btn OrangeButton" onClick={() => handleDelete(item.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
@@ -198,7 +198,7 @@ function AdminPage() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancel</Button>
-                    <Button variant="primary" onClick={handleEditConfirm}>Save Changes</Button>
+                    <Button variant="primary" className='BlueButton' onClick={handleEditConfirm}>Save Changes</Button>
                 </Modal.Footer>
             </Modal>
         </div>

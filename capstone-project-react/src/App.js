@@ -18,6 +18,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DetailPage from './pages/ItemDetailPage';
 import AdminPage from './pages/AdminPage';
+import ProfilePage from './pages/ProfilePage';
 // Components
 import NavBarComponent from './components/NavBarComponent';
 import FooterComponent from './components/FooterComponent';
@@ -34,6 +35,7 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/cart" element={<CartPage />} />

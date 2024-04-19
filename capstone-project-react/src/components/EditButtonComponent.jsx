@@ -19,7 +19,6 @@ const EditButton = ({ itemId, unitaryPrice, currentQuantity, fetchCartItems }) =
 
             const response = await axios.put(`http://127.0.0.1:8000/api/cart-items/${itemId}`, payload);
             console.log('Cart item updated:', response.data);
-            /* window.location.reload(); */
             setShowModal(false);
         } catch (error) {
             console.error('Error updating cart item:', error);
@@ -36,7 +35,7 @@ const EditButton = ({ itemId, unitaryPrice, currentQuantity, fetchCartItems }) =
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" onClick={handleShow} className="BlueButton">
                 Edit
             </Button>
 

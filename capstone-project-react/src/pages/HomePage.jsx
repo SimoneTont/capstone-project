@@ -58,8 +58,8 @@ function HomePage() {
             )}
             <div className="d-flex flex-wrap">
                 {items.map(item => (
-                    <div className="m-5 MyCard" key={item.id}>
-                        <img src={item.image_path} className="card-img-top" alt={"img" + item.id} />
+                    <div className="m-5 MyCard rounded" key={item.id}>
+                        <img src={item.image_path} className="card-img-top rounded" alt={"img" + item.id} />
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
                             <p className="card-text">{truncateText(item.description, 30)}</p>
