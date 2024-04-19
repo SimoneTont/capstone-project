@@ -38,7 +38,7 @@ function ContactPage() {
                     <label htmlFor="message" className="form-label">Message</label>
                     <textarea className="form-control" id="message" name="message" value={formData.message} onChange={handleChange} required />
                 </div>
-                <button type="submit" className="btn btn-primary">Send</button>
+                <button type="submit" className="btn BlueButton">Send</button>
             </form>
         </div>
     );

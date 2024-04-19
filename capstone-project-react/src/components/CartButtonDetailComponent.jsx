@@ -30,7 +30,7 @@ const CartButtonComponent = ({ item, handleAddToCart }) => {
         <>
             <button
                 type="button"
-                className="btn btn-primary"
+                className="btn BlueButton"
                 onClick={openModal}
             >
                 Add to Cart
@@ -61,7 +61,7 @@ const CartButtonComponent = ({ item, handleAddToCart }) => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
-                                <button type="button" className="btn btn-primary" onClick={handleAddToCartClick}>Add to Cart</button>
+                                <button type="button" className="btn BlueButton" onClick={handleAddToCartClick}>Add to Cart</button>
                             </div>
                         </div>
                     </div>

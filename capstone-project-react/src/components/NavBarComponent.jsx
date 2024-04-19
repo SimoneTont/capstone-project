@@ -31,7 +31,7 @@ function NavBarComponent() {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Container>
+      <Container className="SfondoNavbar">
         <Navbar.Brand as={Link} to="/">Mu</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -47,7 +47,7 @@ function NavBarComponent() {
           </Nav>
           {isLoggedIn && (
             <Nav.Link as={Link} to="/login">
-              <Button variant="outline-danger" onClick={handleLogout} >Logout</Button>
+              <Button variant="outline-danger" className="mr-2 BrownButton" onClick={handleLogout} >Logout</Button>
             </Nav.Link>
           )}
         </Navbar.Collapse>

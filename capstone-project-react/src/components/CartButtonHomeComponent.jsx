@@ -29,7 +29,7 @@ const CartItem = ({ item, handleAddToCart }) => {
         <>
             <button
                 type="button"
-                className="btn btn-primary"
+                className="btn ms-2 BlueButton"
                 onClick={openModal}
             >
                 Add to Cart
@@ -45,7 +45,7 @@ const CartItem = ({ item, handleAddToCart }) => {
                             </div>
                             <div className="modal-body">
                                 <p>Are you sure you want to add {item.name} to your cart?</p>
-                                <p>Total Price: {item.price * quantity / 100} €</p>
+                                <p>Total Cost: {item.price * quantity / 100} €</p>
                                 <div className="mb-3">
                                     <label htmlFor="quantityInput" className="form-label">Quantity:</label>
                                     <input
@@ -60,7 +60,7 @@ const CartItem = ({ item, handleAddToCart }) => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
-                                <button type="button" className="btn btn-primary" onClick={handleAddToCartClick}>Add to Cart</button>
+                                <button type="button" className="btn BlueButton" onClick={handleAddToCartClick}>Add to Cart</button>
                             </div>
                         </div>
                     </div>

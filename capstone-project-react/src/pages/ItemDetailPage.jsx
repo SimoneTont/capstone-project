@@ -36,6 +36,7 @@ function ItemDetailPage() {
             price
         })
         .then(response => {
+            console.log('Item added to cart:', response.data);
             window.location.reload();
         })
         .catch(error => {

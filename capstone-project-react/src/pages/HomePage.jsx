@@ -58,7 +58,7 @@ function HomePage() {
             )}
             <div className="d-flex flex-wrap">
                 {items.map(item => (
-                    <div className="m-2" key={item.id}>
+                    <div className="m-5 MyCard" key={item.id}>
                         <img src={item.image_path} className="card-img-top" alt={"img" + item.id} />
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
@@ -71,7 +71,7 @@ function HomePage() {
                                     handleAddToCart={handleAddToCart}
                                 />
                             )}
-                            <a href={"/detail/"+item.id} className="btn btn-primary">Details</a>
+                            <a href={"/detail/"+item.id} className="btn ms-2 OrangeButton">Details</a>
                         </div>
                     </div>
                 ))}
