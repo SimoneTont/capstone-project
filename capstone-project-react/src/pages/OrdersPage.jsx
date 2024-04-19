@@ -14,6 +14,7 @@ function OrdersPage() {
                 if (isLoggedIn && userId) {
                     const response = await axios.get(`http://127.0.0.1:8000/api/orders/${userId}`);
                     setOrders(response.data);
+                    console.log(response.data);
                 }
             } catch (error) {
                 console.error('Error fetching orders:', error);
@@ -41,6 +42,7 @@ function OrdersPage() {
                             <th>Item Name</th>
                             <th>Quantity</th>
                             <th>Amount Paid</th>
+                            <th>Date of Purchase</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +51,7 @@ function OrdersPage() {
                                 <td>{order.item.name}</td>
                                 <td>{order.quantity}</td>
                                 <td>{(order.amount_paid / 100).toFixed(2)} €</td>
+                                <td>{new Date(order.created_at).toISOString().split('T')[0]}</td>
                             </tr>
                         ))}
                     </tbody>
