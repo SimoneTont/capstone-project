@@ -38,6 +38,7 @@ class ItemController extends Controller
         }
         return response()->json($item);
     }
+    
     public function update(Request $request, $id)
     {
         $item = Item::find($id);
