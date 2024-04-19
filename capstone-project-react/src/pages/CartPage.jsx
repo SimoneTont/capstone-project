@@ -1,11 +1,98 @@
-import React, { useState, useEffect } from 'react';
+ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from '../api/axios';
 import { Navigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import DeleteButton from '../components/DeleteButtonComponent';
 import EditButton from '../components/EditButtonComponent';
 
+function CartPage() {
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const [cartItems, setCartItems] = useState([]);
+    const userId = useSelector(state => state.auth.user ? state.auth.user.id : null);
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            if (isLoggedIn && userId) {
+                try {
+                    const response = await axios.get(`http://127.0.0.1:8000/api/cart-items/${userId}`);
+                    setCartItems(response.data.cartItems);
+                } catch (error) {
+                    console.error('Error fetching cart items:', error);
+                }
+            }
+        };
+
+        fetchCartItems();
+    }, [isLoggedIn, userId]);
+
+    const handleCheckout = async () => {
+        try {
+            const response = await axios.post(`http://127.0.0.1:8000/api/cart-items/${userId}/checkout`, {
+                userId,
+                cartItems
+            });
+            console.log('Purchase successful:', response.data);
+
+            await axios.delete(`http://127.0.0.1:8000/api/cart-items/${userId}/empty`);
+            console.log('Cart items cleared successfully.');
+
+            setCartItems([]);
+        } catch (error) {
+            console.error('Error during checkout:', error);
+        }
+    };
+
+    if (!isLoggedIn) {
+        return <Navigate to="/login" />;
+    }
+
+    return (
+        <div className="container mt-4">
+            <h1>Cart Items</h1>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Item Image</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {cartItems.map(item => (
+                        <tr key={item.id}>
+                            <td><img src={item.image_path} alt={item.name} style={{ width: '100px', height: 'auto' }} /></td>
+                            <td>{item.name}</td>
+                            <td>{item.quantity}</td>
+                            <td>{item.price / 100} €</td>
+                            <td>
+                                <DeleteButton itemId={item.id} />
+                                <EditButton itemId={item.id} />
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+
+            <div className="d-flex justify-content-between align-items-center mt-3">
+                <h4>
+                    Total Cost: {' '}
+                    {cartItems.reduce((acc, item) => acc + (item.price ), 0) / 100} €
+                </h4>
+                <Button variant="primary" onClick={handleCheckout} className="BlueButton">
+                    Checkout
+                </Button>
+            </div>
+        </div>
+    );
+}
+
+export default CartPage;
+
+
+/*
 function CartPage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const [cartItems, setCartItems] = useState([]);
@@ -48,6 +135,27 @@ function CartPage() {
         return <Navigate to="/login" />;
     }
 
+        return Object.values(aggregated);
+    }
+
+    function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + "...";
+        } else {
+            return text;
+        }
+    }
+
+    function calculateTotalOrderPrice(items) {
+        let total = 0;
+        items.forEach(item => {
+            if (item.totalPrice) {
+                total += item.totalPrice;
+            }
+        });
+        return total;
+    }
+
     function aggregateItemsByName(items) {
         const aggregated = {};
 
@@ -71,27 +179,6 @@ function CartPage() {
                 };
             }
         });
-
-        return Object.values(aggregated);
-    }
-
-    function calculateTotalOrderPrice(items) {
-        let total = 0;
-        items.forEach(item => {
-            if (item.totalPrice) {
-                total += item.totalPrice;
-            }
-        });
-        return total;
-    }
-
-    function truncateText(text, maxLength) {
-        if (text.length > maxLength) {
-            return text.substring(0, maxLength) + "...";
-        } else {
-            return text;
-        }
-    }
 
     return (
         <div className='PageDiv'>
@@ -141,4 +228,4 @@ function CartPage() {
     );
 }
 
-export default CartPage;
+export default CartPage; */
