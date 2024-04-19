@@ -21,7 +21,7 @@ const CartButtonComponent = ({ item, handleAddToCart }) => {
     };
 
     const handleAddToCartClick = () => {
-        const calculatedPrice = item.price * quantity / 100;
+        const calculatedPrice = item.price * quantity ;
         handleAddToCart(item.id, quantity, calculatedPrice);
         closeModal();
     };

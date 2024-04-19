@@ -13,6 +13,10 @@ function ItemDetailPage() {
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
+        fetchItemDetails();
+    }, [itemId]);
+
+    const fetchItemDetails = () => {
         axios.get(`http://127.0.0.1:8000/api/items/${itemId}`)
             .then(response => {
                 const itemData = response.data;
@@ -22,7 +26,7 @@ function ItemDetailPage() {
             .catch(error => {
                 console.error('Error fetching item details: ', error);
             });
-    }, [itemId]);
+    };
 
     const handleAddToCart = (itemId, quantity, price) => {
         if (!item || quantity < 1) {
@@ -37,7 +41,7 @@ function ItemDetailPage() {
         })
             .then(response => {
                 console.log('Item added to cart:', response.data);
-                window.location.reload();
+                fetchItemDetails();
             })
             .catch(error => {
                 console.error('Error adding item to cart: ', error);

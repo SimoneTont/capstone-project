@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from "../api/axios";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CartItem from '../components/CartButtonHomeComponent';
 
 function HomePage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const user = useSelector(state => state.auth.user);
     const isAdmin = useSelector(state => state.auth.user ? state.auth.user.isAdmin : false);
-    const dispatch = useDispatch();
 
     function truncateText(text, maxLength) {
         if (text.length > maxLength) {
@@ -20,6 +19,10 @@ function HomePage() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
+        fetchItems();
+    }, []);
+
+    const fetchItems = () => {
         axios.get('http://127.0.0.1:8000/api/items')
             .then(response => {
                 setItems(response.data);
@@ -27,7 +30,7 @@ function HomePage() {
             .catch(error => {
                 console.error('Error fetching data: ', error);
             });
-    }, []);
+    };
 
     const handleAddToCart = (itemId, quantity, price) => {
         if (!isLoggedIn) {
@@ -42,7 +45,7 @@ function HomePage() {
         })
             .then(response => {
                 console.log('Item added to cart:', response.data);
-                window.location.reload();
+                fetchItems();
             })
             .catch(error => {
                 console.error('Error adding item to cart: ', error);
@@ -59,10 +62,10 @@ function HomePage() {
             )}
             <div className="d-flex flex-wrap row justify-content-between text-start">
                 {items.map(item => (
-                    <div className='col-lg-3 p-2 col-md-6 col-sm-12'>
-                        <div className="MyCard rounded-3" key={item.id}>
+                    <div className='col-lg-3 p-2 col-md-6 col-sm-12' key={item.id}>
+                        <div className="MyCard rounded-3">
                             <div className='p-2'>
-                            <img src={item.image_path} className="card-img-top rounded-3" alt={"img" + item.id} />
+                                <img src={item.image_path} className="card-img-top rounded-3" alt={"img" + item.id} />
                             </div>
                             <div className="card-body pb-3 mt-1 px-2">
                                 <h5 className="card-title">{item.name}</h5>
