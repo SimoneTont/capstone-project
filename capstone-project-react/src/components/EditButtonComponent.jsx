@@ -4,7 +4,7 @@ import axios from '../api/axios';
 
 const EditButton = ({ itemId, unitaryPrice, currentQuantity, fetchCartItems }) => {
     const [showModal, setShowModal] = useState(false);
-    const [newQuantity, setNewQuantity] = useState(1);
+    const [newQuantity, setNewQuantity] = useState(currentQuantity);
 
     const handleEdit = async () => {
         try {
@@ -19,7 +19,10 @@ const EditButton = ({ itemId, unitaryPrice, currentQuantity, fetchCartItems }) =
 
             const response = await axios.put(`http://127.0.0.1:8000/api/cart-items/${itemId}`, payload);
             console.log('Cart item updated:', response.data);
+
             setShowModal(false);
+
+            fetchCartItems();
         } catch (error) {
             console.error('Error updating cart item:', error);
         }

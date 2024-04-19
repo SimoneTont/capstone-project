@@ -36,16 +36,74 @@ function NavBarComponent() {
         <Navbar.Brand as={Link} to="/">Mu</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link as={Link} to="/" className={isNavLinkActive('/') ? 'fw-bolder' : ''}>Home</Nav.Link>
-            <Nav.Link as={Link} to="/about" className={isNavLinkActive('/about') ? 'fw-bolder' : ''}>About</Nav.Link>
-            <Nav.Link as={Link} to="/contact" className={isNavLinkActive('/contact') ? 'fw-bolder' : ''}>Contact Us</Nav.Link>
-            {isLoggedIn && (<Nav.Link as={Link} to="/cart" className={isNavLinkActive('/cart') ? 'fw-bolder' : ''}>Cart</Nav.Link>)}
-            {isLoggedIn && (<Nav.Link as={Link} to="/orders" className={isNavLinkActive('/orders') ? 'fw-bolder' : ''}>Your Orders</Nav.Link>)}
-            {!isLoggedIn && (<Nav.Link as={Link} to="/login" className={isNavLinkActive('/login') ? 'fw-bolder' : ''}>Login</Nav.Link>)}
-            {!isLoggedIn && (<Nav.Link as={Link} to="/register" className={isNavLinkActive('/register') ? 'fw-bolder' : ''}>Register</Nav.Link>)}
-            {isAdmin && (<Nav.Link as={Link} to="/admin" className={isNavLinkActive('/admin') ? 'fw-bolder' : ''}>Admin</Nav.Link>)}
-          </Nav>
+        <Nav className="mr-auto">
+  <Nav.Link
+    as={Link}
+    to="/"
+    className={` ${isNavLinkActive('/') ? 'fw-bolder' : ''} WhiteText`}
+  >
+    Home
+  </Nav.Link>
+  <Nav.Link
+    as={Link}
+    to="/about"
+    className={` ${isNavLinkActive('/about') ? 'fw-bolder' : ''} WhiteText`}
+  >
+    About
+  </Nav.Link>
+  <Nav.Link
+    as={Link}
+    to="/contact"
+    className={` ${isNavLinkActive('/contact') ? 'fw-bolder' : ''} WhiteText`}
+  >
+    Contact Us
+  </Nav.Link>
+  {isLoggedIn && (
+    <Nav.Link
+      as={Link}
+      to="/cart"
+      className={` ${isNavLinkActive('/cart') ? 'fw-bolder' : ''} WhiteText`}
+    >
+      Cart
+    </Nav.Link>
+  )}
+  {isLoggedIn && (
+    <Nav.Link
+      as={Link}
+      to="/orders"
+      className={` ${isNavLinkActive('/orders') ? 'fw-bolder' : ''} WhiteText`}
+    >
+      Your Orders
+    </Nav.Link>
+  )}
+  {!isLoggedIn && (
+    <Nav.Link
+      as={Link}
+      to="/login"
+      className={` ${isNavLinkActive('/login') ? 'fw-bolder' : ''} WhiteText`}
+    >
+      Login
+    </Nav.Link>
+  )}
+  {!isLoggedIn && (
+    <Nav.Link
+      as={Link}
+      to="/register"
+      className={` ${isNavLinkActive('/register') ? 'fw-bolder' : ''} WhiteText`}
+    >
+      Register
+    </Nav.Link>
+  )}
+  {isAdmin && (
+    <Nav.Link
+      as={Link}
+      to="/admin"
+      className={` ${isNavLinkActive('/admin') ? 'fw-bolder' : ''} WhiteText`}
+    >
+      Admin
+    </Nav.Link>
+  )}
+</Nav>
           {isLoggedIn && (
             <div className="d-flex ms-auto align-items-center">
               <Nav.Link as={Link} to={`/profile/${user.id}`} 

@@ -8,21 +8,21 @@ import EditButton from '../components/EditButtonComponent';
 
 function CartPage() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-    const [cartItems, setCartItems] = useState([]);
     const userId = useSelector(state => state.auth.user ? state.auth.user.id : null);
+    const [cartItems, setCartItems] = useState([]);
+
+    const fetchCartItems = async () => {
+        if (isLoggedIn && userId) {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/cart-items/${userId}`);
+                setCartItems(response.data.cartItems);
+            } catch (error) {
+                console.error('Error fetching cart items:', error);
+            }
+        }
+    };
 
     useEffect(() => {
-        const fetchCartItems = async () => {
-            if (isLoggedIn && userId) {
-                try {
-                    const response = await axios.get(`http://127.0.0.1:8000/api/cart-items/${userId}`);
-                    setCartItems(response.data.cartItems);
-                } catch (error) {
-                    console.error('Error fetching cart items:', error);
-                }
-            }
-        };
-
         fetchCartItems();
     }, [isLoggedIn, userId]);
 
@@ -42,6 +42,9 @@ function CartPage() {
             console.error('Error during checkout:', error);
         }
     };
+    const handleItemDeleted = () => {
+        fetchCartItems();
+    };
 
     if (!isLoggedIn) {
         return <Navigate to="/login" />;
@@ -49,7 +52,9 @@ function CartPage() {
 
     return (
         <div className="container mt-4 PageDiv">
-            <h1>Cart Items</h1>
+            <div className="MyTitle">
+                <h1>Cart Items</h1>
+            </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -71,11 +76,16 @@ function CartPage() {
                                 <td>{item.quantity}</td>
                                 <td>{item.price / 100} €</td>
                                 <td>
-                                    <DeleteButton itemId={item.id} />
+                                    <DeleteButton
+                                        itemId={item.id}
+                                        quantity={item.quantity}
+                                        onItemDeleted={handleItemDeleted}
+                                    />
                                     <EditButton
                                         itemId={item.id}
                                         unitaryPrice={unitaryPrice}
                                         currentQuantity={item.quantity}
+                                        fetchCartItems={fetchCartItems}
                                     />
                                 </td>
                             </tr>
@@ -87,7 +97,7 @@ function CartPage() {
             <div className="d-flex justify-content-between align-items-center mt-3">
                 <h4>
                     Total Cost: {' '}
-                    {cartItems.reduce((acc, item) => acc + (item.price ), 0) / 100} €
+                    {cartItems.reduce((acc, item) => acc + (item.price), 0) / 100} €
                 </h4>
                 <Button variant="primary" onClick={handleCheckout} className="BlueButton">
                     Checkout

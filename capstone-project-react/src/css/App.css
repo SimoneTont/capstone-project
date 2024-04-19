@@ -1,3 +1,7 @@
+* {
+    font-size: 1.2rem;
+}
+
 .PageDiv {
     margin-top: 30px;
     min-height: 95vh;
@@ -6,14 +10,12 @@
 
 .MyCard {
     border: 4px solid #F3994A;
-    padding: 1px;
 }
 
 
 .OrangeButton {
     background-color: white !important;
     border: 4px solid #F07F1D !important;
-    box-shadow: 0 0 10px #F07F1D !important;
     padding: 10px 30px;
     border-radius: 3px;
     color: #F07F1D !important;
@@ -22,7 +24,6 @@
 .BlueButton {
     background-color: white !important;
     border: 4px solid #5895A2 !important;
-    box-shadow: 0 0 10px #5895A2 !important;
     padding: 10px 30px;
     border-radius: 3px;
     color: #5895A2 !important;
@@ -40,9 +41,13 @@
 
 .BrownButton {
     background-color: #F07F1D !important;
-    border: 1px solid #F07F1D!important;
+    border: 1px solid #F07F1D !important;
     border-radius: 3px;
-    color: #311700 !important;
+    color: white !important;
+}
+
+.WhiteText {
+    color: white !important;
 }
 
 .BrownButton:hover {
@@ -53,18 +58,42 @@
 
 .SfondoArancione {
     background-color: #F07F1D;
+    color: white !important;
 }
 
 .rounded-image {
     border-radius: 50% !important;
 }
 
-.item-image-container{
-    background-size:contain;
+.item-image-container {
+    background-size: contain;
     background-repeat: no-repeat;
     height: 50vh;
     width: 50vh;
 }
-.item-detail-container {
-    display: flex;
+
+/* .item-detail-container {
+    border-left: #F07F1D 3px solid;
+    margin-left: 2rem;
+    padding-left: 2rem;
+} */
+
+.MyTitle {
+    padding-left: 1rem;
+    border-left: 5px solid #F07F1D;
+
+    h1,
+    h2,
+    h3 {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .item-image-container {
+        height: 300px !important;
+        width: auto !important;
+    }
+    
 }

@@ -119,7 +119,9 @@ function AdminPage() {
 
     return (
         <div className='PageDiv'>
-            <h1>Admin Page</h1>
+            <div className="MyTitle">
+                <h1>Admin Page</h1>
+            </div>
             <form onSubmit={handleAddItem} className="mb-3">
                 <div className="mb-3">
                     <label htmlFor="itemName" className="form-label">Item Name</label>

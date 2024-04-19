@@ -24,7 +24,9 @@ function ContactPage() {
 
     return (
         <div className='PageDiv'>
+            <div className='MyTitle mb-5'>
             <h1>Contact</h1>
+            </div>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Your Name</label>

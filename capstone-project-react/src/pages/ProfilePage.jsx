@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
+import axios from "../api/axios";
 
 function ProfilePage() {
     const user = useSelector(state => state.auth.user);

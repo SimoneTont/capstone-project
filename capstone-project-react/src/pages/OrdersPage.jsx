@@ -16,7 +16,7 @@ function OrdersPage() {
                     setOrders(response.data);
                 }
             } catch (error) {
-                console.error('Error fetching sold items:', error);
+                console.error('Error fetching orders:', error);
             }
         };
 
@@ -28,12 +28,14 @@ function OrdersPage() {
     }
 
     return (
-        <div className='PageDiv'>
-            <h3>Your Orders</h3>
+        <div className="PageDiv">
+            <div className="MyTitle">
+                <h3>Your Orders</h3>
+            </div>
             {orders.length === 0 ? (
                 <p>No orders found.</p>
             ) : (
-                <table className="table">
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             <th>Item Name</th>
@@ -46,7 +48,7 @@ function OrdersPage() {
                             <tr key={order.id}>
                                 <td>{order.item.name}</td>
                                 <td>{order.quantity}</td>
-                                <td>{order.amount_paid/100} €</td>
+                                <td>{(order.amount_paid / 100).toFixed(2)} €</td>
                             </tr>
                         ))}
                     </tbody>

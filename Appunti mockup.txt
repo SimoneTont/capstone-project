@@ -4,4 +4,5 @@ Evidenzia
 
 Dettagli (Immagine grande a sinistra e tutto il resto a destra)
 
-Tabella recap carrello -> Aggiungi accordion per mostrare anche ordini individuali oltre al recap, togli card e sposta il crud nelle accordition
+Tabella recap carrello -> Aggiungi accordion per mostrare anche ordini individuali oltre al recap, togli card e sposta il crud nelle accordion, 
+aggiungi campo immagine a sinistra della tabella

@@ -40,37 +40,43 @@ function HomePage() {
             user_id: user.id,
             price: price * quantity,
         })
-        .then(response => {
-            console.log('Item added to cart:', response.data);
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error('Error adding item to cart: ', error);
-        });
+            .then(response => {
+                console.log('Item added to cart:', response.data);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error adding item to cart: ', error);
+            });
     };
 
     return (
         <div className='PageDiv'>
-            <h1 className="mb-4">Welcome to the Home Page, {isLoggedIn && user.name ? user.name : 'Guest'}</h1>
+            <div className="MyTitle">
+                <h1 className="mb-4">Welcome to the Home Page, {isLoggedIn && user.name ? user.name : 'Guest'}</h1>
+            </div>
             {isAdmin && (
                 <p className="text-muted">Logged in as admin</p>
             )}
-            <div className="d-flex flex-wrap">
+            <div className="d-flex flex-wrap row justify-content-between text-start">
                 {items.map(item => (
-                    <div className="m-5 MyCard rounded" key={item.id}>
-                        <img src={item.image_path} className="card-img-top rounded" alt={"img" + item.id} />
-                        <div className="card-body">
-                            <h5 className="card-title">{item.name}</h5>
-                            <p className="card-text">{truncateText(item.description, 30)}</p>
-                            <p className="card-text">Quantity: {item.quantity}</p>
-                            <p className="card-text">Price: {item.price/100} €</p>
-                            {isLoggedIn && (
-                                <CartItem
-                                    item={item}
-                                    handleAddToCart={handleAddToCart}
-                                />
-                            )}
-                            <a href={"/detail/"+item.id} className="btn ms-2 OrangeButton">Details</a>
+                    <div className='col-lg-3 p-2 col-md-6 col-sm-12'>
+                        <div className="MyCard rounded-3" key={item.id}>
+                            <div className='p-2'>
+                            <img src={item.image_path} className="card-img-top rounded-3" alt={"img" + item.id} />
+                            </div>
+                            <div className="card-body pb-3 mt-1 px-2">
+                                <h5 className="card-title">{item.name}</h5>
+                                <p className="card-text">{truncateText(item.description, 30)}</p>
+                                <p className="card-text">Quantity: {item.quantity}</p>
+                                <p className="card-text">Price: {item.price / 100} €</p>
+                                {isLoggedIn && (
+                                    <CartItem
+                                        item={item}
+                                        handleAddToCart={handleAddToCart}
+                                    />
+                                )}
+                                <a href={"/detail/" + item.id} className="btn ms-2 OrangeButton">Details</a>
+                            </div>
                         </div>
                     </div>
                 ))}
