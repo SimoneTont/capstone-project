@@ -113,6 +113,14 @@ function AdminPage() {
             });
     };
 
+    function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + "...";
+        } else {
+            return text;
+        }
+    }
+
     if (!isAdmin) {
         return <Navigate to="/" />;
     }
@@ -161,10 +169,10 @@ function AdminPage() {
                         <tr key={item.id}>
                             <td>{item.id}</td>
                             <td>{item.name}</td>
-                            <td className="w-50">{item.description}</td>
+                            <td style={{ width: '30vh' }}>{truncateText(item.description, 100)}</td>
                             <td>{item.quantity}</td>
                             <td>{(item.price / 100).toFixed(2)}</td>
-                            <td>
+                            <td >
                                 <button className="btn BlueButton me-2" onClick={() => handleEdit(item.id)}>Edit</button>
                                 <button className="btn OrangeButton" onClick={() => handleDelete(item.id)}>Delete</button>
                             </td>
