@@ -35,34 +35,49 @@ function ItemDetailPage() {
             user_id: userID,
             price
         })
-        .then(response => {
-            console.log('Item added to cart:', response.data);
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error('Error adding item to cart: ', error);
-        });
+            .then(response => {
+                console.log('Item added to cart:', response.data);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error adding item to cart: ', error);
+            });
     };
 
     return (
         <div className="PageDiv">
-            <h1>Item Details</h1>
+            <h1 className='my-5'>Item Details</h1>
             {item ? (
-                <div className="card m-2">
-                    <img src={item.image_path} className="card-img-top" alt={`${item.name}_img`} />
-                    <div className="card-body">
-                        <h5 className="card-title">{item.name}</h5>
-                        <p className="card-text">{item.description}</p>
-                        <p className='card-text'>{item.price / 100} €</p>
-                        <p>Available Copies: {item.quantity}</p>
-                        {isLoggedIn && (
-                            <CartButtonComponent
-                                item={item}
-                                handleAddToCart={handleAddToCart}
-                            />
-                        )}
+                <div className="container">
+                <div className="row">
+                    <div className="col-5">
+                        <div className="item-image-container my-5"
+                            style={{ 
+                                backgroundImage: `url(${item.image_path})`, 
+                                height: '400px', 
+                                backgroundSize: 'cover', 
+                                backgroundPosition: 'center' 
+                            }}>
+                        </div>
+                    </div>
+                    <div className="col-5">
+                        <div className="item-details p-4">
+                            <h2 className="fs-1">{item.name}</h2>
+                            <p className="fs-3">{item.description}</p>
+                            <p className="fs-3">Price: {item.price / 100} €</p>
+                            <p className="fs-3">Available Copies: {item.quantity}</p>
+                            {isLoggedIn && (
+                                <CartButtonComponent
+                                    item={item}
+                                    handleAddToCart={handleAddToCart}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
+            </div>
+            
+
             ) : (
                 <p>Loading...</p>
             )}

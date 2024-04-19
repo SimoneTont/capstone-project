@@ -1,4 +1,3 @@
-import '../css/HomePage.css';
 import React, { useState, useEffect } from 'react';
 import axios from "../api/axios";
 import { useDispatch, useSelector } from 'react-redux';

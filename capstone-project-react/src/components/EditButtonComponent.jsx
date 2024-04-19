@@ -35,7 +35,7 @@ const EditButton = ({ itemId, unitaryPrice, currentQuantity, fetchCartItems }) =
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow} className="BlueButton">
+            <Button variant="primary" onClick={handleShow} className="BlueButton me-1">
                 Edit
             </Button>
 

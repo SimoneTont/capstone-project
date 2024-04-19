@@ -1,4 +1,5 @@
 .PageDiv {
+    margin-top: 30px;
     min-height: 95vh;
     color: #311700;
 }
@@ -7,6 +8,7 @@
     border: 4px solid #F3994A;
     padding: 1px;
 }
+
 
 .OrangeButton {
     background-color: white !important;
@@ -49,10 +51,20 @@
     color: white !important;
 }
 
-.SfondoNavbar {
+.SfondoArancione {
     background-color: #F07F1D;
 }
 
 .rounded-image {
     border-radius: 50% !important;
+}
+
+.item-image-container{
+    background-size:contain;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 50vh;
+}
+.item-detail-container {
+    display: flex;
 }

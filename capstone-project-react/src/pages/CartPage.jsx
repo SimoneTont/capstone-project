@@ -132,7 +132,7 @@ function CartPage() {
                             <p>Total cost: {calculateTotalOrderPrice(aggregateItemsByName(cartItems)) / 100} €</p>
                         </>
                     )}
-                    <Button variant="primary" onClick={handleCheckout} className="ms-auto BlueButton">
+                    <Button variant="primary" onClick={handleCheckout} className="ms-auto me-2 BlueButton">
                         Checkout
                     </Button>
                 </div>

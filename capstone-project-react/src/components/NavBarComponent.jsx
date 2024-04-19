@@ -31,8 +31,8 @@ function NavBarComponent() {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Container className="SfondoNavbar">
+    <Navbar className="SfondoArancione" expand="lg">
+      <Container>
         <Navbar.Brand as={Link} to="/">Mu</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

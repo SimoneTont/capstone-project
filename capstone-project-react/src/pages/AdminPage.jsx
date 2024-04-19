@@ -159,7 +159,7 @@ function AdminPage() {
                         <tr key={item.id}>
                             <td>{item.id}</td>
                             <td>{item.name}</td>
-                            <td>{item.description}</td>
+                            <td className="w-50">{item.description}</td>
                             <td>{item.quantity}</td>
                             <td>{(item.price / 100).toFixed(2)}</td>
                             <td>
