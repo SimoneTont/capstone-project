@@ -43,14 +43,16 @@ function ProfilePage() {
 
     return (
         <div className="PageDiv">
-            <h1>Welcome to your profile page, {user.name || 'Guest'}</h1>
-            <div>
-                <h2>Profile Information:</h2>
+            <div className="MyTitle">
+                <h1>Welcome to your profile page, {user.name || 'Guest'}</h1>
+            </div>
+            <div className="mt-5 ProfileInfo">
+                <h3>Profile Information:</h3>
                 <p>Username: {formData.username}</p>
                 <p>Email: {formData.email}</p>
             </div>
-            <div>
-                <h2>Edit Profile:</h2>
+            <div className="mt-4">
+                <h3>Edit Profile:</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>

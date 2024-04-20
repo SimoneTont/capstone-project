@@ -71,7 +71,7 @@ function CartPage() {
 
                         return (
                             <tr key={item.id}>
-                                <td><img src={item.image_path} alt={item.name} style={{ width: '100px', height: 'auto' }} /></td>
+                                <td className='d-flex justify-content-center'><img className='rounded-2' src={item.image_path} alt={item.name} style={{ width: '100px', height: 'auto' }} /></td>
                                 <td>{item.name}</td>
                                 <td>{item.quantity}</td>
                                 <td>{item.price / 100} €</td>

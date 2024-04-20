@@ -63,7 +63,7 @@ function HomePage() {
             <div className="d-flex flex-wrap row justify-content-between text-start">
                 {items.map(item => (
                     <div className='col-lg-3 p-2 col-md-6 col-sm-12' key={item.id}>
-                        <div className="MyCard rounded-3">
+                        <div className="MyCard  rounded-3">
                             <div className='p-2'>
                                 <img src={item.image_path} className="card-img-top rounded-3" alt={"img" + item.id} />
                             </div>

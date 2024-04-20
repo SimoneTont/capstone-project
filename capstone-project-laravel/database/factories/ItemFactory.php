@@ -20,13 +20,13 @@ class ItemFactory extends Factory
      * @return array
      */
     public function definition()
-    {
-        return [
-            'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'image_path' => 'https://picsum.photos/id/' . $this->faker->numberBetween(1, 60) . '/200/300',
-            'quantity' => $this->faker->numberBetween(100, 200),
-            'price' => $this->faker->numberBetween(100, 5000)
-        ];
-    }
+{
+    return [
+        'name' => $this->faker->word,
+        'description' => $this->faker->text(100),
+        'image_path' => 'https://picsum.photos/id/' . $this->faker->numberBetween(1, 60) . '/200/300',
+        'quantity' => $this->faker->numberBetween(100, 200),
+        'price' => $this->faker->numberBetween(1000, 5000)
+    ];
+}
 }

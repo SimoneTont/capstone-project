@@ -19,7 +19,7 @@ const DeleteButton = ({ itemId, quantity, onItemDeleted }) => {
     };
 
     return (
-        <Button className='OrangeButton ms-1' variant="danger" onClick={() => handleDelete(itemId, quantity)}>
+        <Button className='OrangeButton ms-1 me-3' variant="danger" onClick={() => handleDelete(itemId, quantity)}>
             Delete
         </Button>
     );

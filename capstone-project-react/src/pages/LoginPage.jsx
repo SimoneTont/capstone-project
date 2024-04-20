@@ -41,7 +41,7 @@ function LoginPage() {
 
   return (
     <div className='PageDiv'>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='d-flex align-items-center'>
         <label>
           Email:
           <input
@@ -60,10 +60,10 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="submit" disabled={isLoading}>Login</button>
+        <button type="submit" disabled={isLoading} className='btn BlueButton ms-3'>Login</button>
         {isLoading && <p>Loading...</p>}
       </form>
-      <p>Don't have an account? <a href="/register">Register now!</a></p>
+      <p className='mt-3'>Don't have an account? <a href="/register">Register now!</a></p>
     </div>
   );
 }

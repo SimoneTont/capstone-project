@@ -55,20 +55,12 @@ function ItemDetailPage() {
             </div>
             {item ? (
                 <div className="container">
-                    <div className="row">
-                        <div className="col-md-5 col-sm-12">
-                            <div className="item-image-container my-5"
-                                style={{
-                                    backgroundImage: `url(${item.image_path})`,
-                                    width: '100%',
-                                    height: '100%',
-                                    backgroundSize: 'fit',
-                                    backgroundPosition: 'center'
-                                }}>
-                            </div>
+                    <div className="row h-50 mb-5">
+                        <div className="col-md-6 col-sm-12 item-image-container">
+                            <img src={item.image_path} alt={`image ${item.id}`} />
                         </div>
-                        <div className="col-md-5 col-sm-12">
-                            <div className="item-detail-container p-4">
+                        <div className="col-md-6 col-sm-12">
+                            <div className="item-detail-container">
                                 <h2 className="fs-1">{item.name}</h2>
                                 <p className="fs-3">{item.description}</p>
                                 <p className="fs-3">Price: {item.price / 100} €</p>
@@ -91,3 +83,14 @@ function ItemDetailPage() {
 }
 
 export default ItemDetailPage;
+
+
+{/* 
+    style={{
+        backgroundImage: `url(${item.image_path})`,
+        width: '100%',
+        height: '100%',
+        backgroundSize: 'fit',
+        backgroundPosition: 'center'
+    }}
+    */}

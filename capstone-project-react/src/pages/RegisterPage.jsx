@@ -47,65 +47,62 @@ function RegisterPage() {
   return (
     <div className='PageDiv'>
       <form onSubmit={handleSubmit}>
-      <div>
-  {/* First Row: Name and Email */}
-  <div style={{ marginBottom: '1rem' }}>
-    <label>
-      Name:
-      <input
-        type="text"
-        value={name}
-        placeholder="Name"
-        name='name'
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-    </label>
-    <label style={{ marginLeft: '1rem' }}>
-      Email:
-      <input
-        type="text"
-        value={email}
-        placeholder="Email"
-        name='email'
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-    </label>
-  </div>
-
-  {/* Second Row: Password and Confirm Password */}
-  <div>
-    <label>
-      Password:
-      <input
-        type="password"
-        value={password}
-        placeholder="Password"
-        name='password'
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-    </label>
-    <label style={{ marginLeft: '1rem' }}>
-      Confirm Password:
-      <input
-        type="password"
-        value={password_confirmation}
-        placeholder="Confirm Password"
-        name='password_confirmation'
-        onChange={(e) => {
-          setpassword_confirmation(e.target.value);
-          setPasswordsMatch(e.target.value === password);
-        }}
-        required
-      />
-    </label>
-  </div>
-</div>
+        <div>
+          <div style={{ marginBottom: '1rem' }}>
+            <label>
+              Name:
+              <input
+                type="text"
+                value={name}
+                placeholder="Name"
+                name='name'
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </label>
+            <label style={{ marginLeft: '1rem' }}>
+              Email:
+              <input
+                type="text"
+                value={email}
+                placeholder="Email"
+                name='email'
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password:
+              <input
+                type="password"
+                value={password}
+                placeholder="Password"
+                name='password'
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+            <label style={{ marginLeft: '1rem' }}>
+              Confirm Password:
+              <input
+                type="password"
+                value={password_confirmation}
+                placeholder="Confirm Password"
+                name='password_confirmation'
+                onChange={(e) => {
+                  setpassword_confirmation(e.target.value);
+                  setPasswordsMatch(e.target.value === password);
+                }}
+                required
+              />
+            </label>
+          </div>
+        </div>
 
         {!passwordsMatch && <p style={{ color: 'red' }}>Passwords do not match</p>}
-        <button type="submit">Register</button>
+        <button type="submit" className='btn BlueButton'>Register</button>
       </form>
       <p>Already have an account? <a href="/login">Login here!</a></p>
     </div>
