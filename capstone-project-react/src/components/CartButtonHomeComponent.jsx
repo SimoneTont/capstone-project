@@ -29,7 +29,7 @@ const CartItem = ({ item, handleAddToCart }) => {
         <>
             <button
                 type="button"
-                className="btn ms-2 BlueButton"
+                className="btn BlueButton"
                 onClick={openModal}
             >
                 Add to Cart
