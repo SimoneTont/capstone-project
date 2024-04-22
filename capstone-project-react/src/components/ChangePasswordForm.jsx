@@ -75,10 +75,10 @@ const ChangePasswordForm = () => {
           className="form-control"
         />
       </div>
-      <button type="button" onClick={togglePasswordVisibility} className="btn mt-3 BlueButton">
+      <button type="button" onClick={togglePasswordVisibility} className="btn mt-3 me-3 BlueButton">
         {showPassword ? "Hide Password" : "Show Password"}
       </button>
-      <button type="submit" className="btn mt-3 ms-3 OrangeButton">
+      <button type="submit" className="btn mt-3 OrangeButton PasswordButton">
         Change Password
       </button>
     </form>
