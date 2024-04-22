@@ -7,6 +7,7 @@ function ContactPage() {
         email: '',
         message: ''
     });
+    const [isSent, setIsSent] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,6 +18,14 @@ function ContactPage() {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/send-email', formData);
             console.log(response.data);
+
+            setFormData({
+                name: '',
+                email: '',
+                message: ''
+            });
+            setIsSent(true);
+
         } catch (error) {
             console.error('Error sending message:', error);
         }
@@ -25,7 +34,7 @@ function ContactPage() {
     return (
         <div className='PageDiv'>
             <div className='MyTitle mb-5'>
-            <h1>Contact</h1>
+                <h1>Contact</h1>
             </div>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -42,6 +51,10 @@ function ContactPage() {
                 </div>
                 <button type="submit" className="btn BlueButton">Send</button>
             </form>
+
+            {isSent && (
+                <p>Your email has been successfully sent.</p>
+            )}
         </div>
     );
 }

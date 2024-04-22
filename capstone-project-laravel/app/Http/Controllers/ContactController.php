@@ -27,7 +27,7 @@ class ContactController extends Controller
 
             Mail::to('example@mail.com')->send(new ContactFormMail($data));
 
-            return redirect()->back()->with('success', 'Message sent successfully!');
+            return response()->json(['message' => 'Email sent successfully'], 200);
         } catch (Exception $e) {
             Log::error('Error sending email: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while sending the message. Please try again later.');

@@ -41,7 +41,7 @@ function OrdersPage() {
                         <tr>
                             <th>Item Name</th>
                             <th>Quantity</th>
-                            <th>Amount Paid</th>
+                            <th>Cost</th>
                             <th>Date of Purchase</th>
                         </tr>
                     </thead>
