@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "../api/axios";
+import ProfileInfoForm from "../components/ProfileInfoForm";
+import ChangePasswordForm from "../components/ChangePasswordForm";
 
 function ProfilePage() {
     const user = useSelector((state) => state.auth.user);
@@ -15,12 +17,23 @@ function ProfilePage() {
         confirmPassword: "",
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    const handleProfileSubmit = (e) => {
+        e.preventDefault();
+
+        axios
+            .put(`http://127.0.0.1:8000/api/users/${userId}`, {
+                username: formData.username,
+                email: formData.email,
+            })
+            .then((response) => {
+                console.log("User profile updated:", response.data);
+            })
+            .catch((error) => {
+                console.error("Error updating user profile:", error);
+            });
     };
 
-    const handleSubmit = (e) => {
+    const handlePasswordSubmit = (e) => {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
@@ -28,12 +41,15 @@ function ProfilePage() {
             return;
         }
 
-        axios.put(`http://127.0.0.1:8000/api/users/${userId}`, formData)
+        axios
+            .put(`http://127.0.0.1:8000/api/users/${userId}`, {
+                password: formData.password,
+            })
             .then((response) => {
-                console.log('User profile updated:', response.data);
+                console.log("Password changed successfully.");
             })
             .catch((error) => {
-                console.error('Error updating user profile:', error);
+                console.error("Error changing password:", error);
             });
     };
 
@@ -44,62 +60,34 @@ function ProfilePage() {
     return (
         <div className="PageDiv">
             <div className="MyTitle">
-                <h1>Welcome to your profile page, {user.name || 'Guest'}</h1>
+                <h1>Welcome to your profile page, {user.name || "Guest"}</h1>
             </div>
             <div className="mt-5 ProfileInfo">
-                <h3>Profile Information:</h3>
-                <p>Username: {formData.username}</p>
-                <p>Email: {formData.email}</p>
+                <div className="ProfileInfo">
+                    <h3>Profile Information:</h3>
+                    <p>Username: {formData.username}</p>
+                    <p>Email: {formData.email}</p>
+                </div>
+                <div className="mt-4">
+                    <h3>Edit Profile:</h3>
+                    <ProfileInfoForm
+                        formData={formData}
+                        handleChange={(e) =>
+                            setFormData({ ...formData, [e.target.name]: e.target.value })
+                        }
+                        handleSubmit={handleProfileSubmit}
+                    />
+                </div>
             </div>
             <div className="mt-4">
-                <h3>Edit Profile:</h3>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            value={formData.username}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="confirmPassword">Confirm Password:</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            className="form-control"
-                        />
-                    </div>
-                    <button type="submit" className="btn mt-3 BlueButton">Update Profile</button>
-                </form>
+                <h3>Change Password:</h3>
+                <ChangePasswordForm
+                    formData={formData}
+                    handleChange={(e) =>
+                        setFormData({ ...formData, [e.target.name]: e.target.value })
+                    }
+                    handleSubmit={handlePasswordSubmit}
+                />
             </div>
         </div>
     );
