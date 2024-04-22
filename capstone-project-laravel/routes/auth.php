@@ -37,7 +37,13 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-    Route::middleware(['auth'])->group(function () {
-        Route::put('/user/profile/{id}', [UserProfileController::class, 'update'])
-            ->name('user.profile.update');
-    });
+Route::middleware(['auth'])->group(function () {
+    Route::put('/user/profile/{id}', [UserProfileController::class, 'update'])
+        ->name('user.profile.update');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::put('/user/profile-password/{id}', [UserProfileController::class, 'updatePassword'])
+        ->name('user.profile.update');
+});

@@ -40,4 +40,22 @@ class UserProfileController extends Controller
 
         return response()->json(['message' => 'User profile updated successfully'], 200);
     }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'required|string|min:6',
+        ]);
+
+        try {
+            $user = User::findOrFail($id);
+            $user->password = bcrypt($request->input('password'));
+
+            $user->save();
+
+            return response()->json(['message' => 'Password updated successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to update password'], 500);
+        }
+    }
 }
