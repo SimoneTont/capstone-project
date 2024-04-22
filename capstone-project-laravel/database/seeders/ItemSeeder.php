@@ -66,8 +66,8 @@ class ItemSeeder extends Seeder
                 'image_path' => 'https://www.salepepe.it/files/2016/08/pomodoro-benessere-1140x636.jpg'
             ],
             [
-                'name' => 'Spaghetti pasta',
-                'description' => 'Italian spaghetti pasta',
+                'name' => 'Spaghetti',
+                'description' => 'Italian spaghetti',
                 'quantity' => 190,
                 'price' => 120,
                 'image_path' => 'https://www.letrecolline.net/media/catalog/product/cache/c524bd787290ae79c43ec97170b00d6e/s/p/spaghetti_1_1.jpg'

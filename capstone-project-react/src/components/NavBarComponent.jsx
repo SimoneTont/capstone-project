@@ -32,10 +32,10 @@ function NavBarComponent() {
   };
 
   return (
-    <Navbar className="SfondoArancione bg-dark" expand="lg">
+    <Navbar className=" bg-dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/"><img src={Logo} alt="Logo" height="50px" /></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ border: 'none', boxShadow: 'none', overflow: 'none', backgroundColor: '#FFFFFF50' }} as="button"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link
@@ -106,13 +106,13 @@ function NavBarComponent() {
             )}
           </Nav>
           {isLoggedIn && (
-            <div className="d-flex ms-auto align-items-center">
+            <div className="d-flex ms-auto UserOptions">
               <Nav.Link as={Link} to={`/profile/${user.id}`}
-                className={`${isNavLinkActive(`/profile/${user.id}`) ? 'fw-bolder' : ''} mx-2 WhiteText`}>
+                className={`${isNavLinkActive(`/profile/${user.id}`) ? 'fw-bolder' : ''} WhiteText`}>
                 Your Profile
               </Nav.Link>
               <Nav.Link as={Link} to="/login">
-                <Button variant="outline-danger" className="mr-2 BrownButton" onClick={handleLogout} >Logout</Button>
+                <Button variant="outline-danger" className="BrownButton" onClick={handleLogout} >Logout</Button>
               </Nav.Link>
             </div>
           )}

@@ -102,7 +102,7 @@ function RegisterPage() {
         </div>
 
         {!passwordsMatch && <p style={{ color: 'red' }}>Passwords do not match</p>}
-        <button type="submit" className='btn BlueButton'>Register</button>
+        <button type="submit" className='btn mt-2 mb-2 BlueButton'>Register</button>
       </form>
       <p>Already have an account? <a href="/login">Login here!</a></p>
     </div>

@@ -118,6 +118,7 @@
     margin-top: 5rem;
 }
 
+
 @media screen and (max-width: 768px) {
     .item-image-container {
         height: auto !important;
@@ -127,4 +128,26 @@
         padding-bottom: 1rem;
     }
     
+}
+
+@media screen and (max-width: 992px) {
+    .UserOptions
+    {
+        flex-direction: column !important;
+        a {
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .UserOptions
+    {
+        flex-direction: row !important;
+        align-items: center;
+        a {
+            margin-right: 1rem;
+        }
+    }
 }

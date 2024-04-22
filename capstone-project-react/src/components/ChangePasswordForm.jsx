@@ -8,6 +8,7 @@ const ChangePasswordForm = () => {
     confirmPassword: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
   const userID = useSelector((state) => (state.auth.user ? state.auth.user.id : null));
 
   const handleChange = (e) => {
@@ -16,6 +17,10 @@ const ChangePasswordForm = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (e) => {
@@ -38,7 +43,7 @@ const ChangePasswordForm = () => {
       .then((response) => {
         console.log("Password updated successfully:", response.data);
         alert("Password updated successfully!");
-        setFormData({ password: "", confirmPassword: "" }); // Clear form fields
+        setFormData({ password: "", confirmPassword: "" });
       })
       .catch((error) => {
         console.error("Error updating password:", error);
@@ -51,7 +56,7 @@ const ChangePasswordForm = () => {
       <div className="form-group">
         <label htmlFor="password">New Password:</label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           name="password"
           value={formData.password}
@@ -62,7 +67,7 @@ const ChangePasswordForm = () => {
       <div className="form-group">
         <label htmlFor="confirmPassword">Confirm New Password:</label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="confirmPassword"
           name="confirmPassword"
           value={formData.confirmPassword}
@@ -70,7 +75,10 @@ const ChangePasswordForm = () => {
           className="form-control"
         />
       </div>
-      <button type="submit" className="btn mt-3 BlueButton">
+      <button type="button" onClick={togglePasswordVisibility} className="btn mt-3 BlueButton">
+        {showPassword ? "Hide Password" : "Show Password"}
+      </button>
+      <button type="submit" className="btn mt-3 ms-3 OrangeButton">
         Change Password
       </button>
     </form>

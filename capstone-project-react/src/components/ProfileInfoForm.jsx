@@ -53,7 +53,7 @@ const ProfileInfoForm = ({ formData, handleChange, handleSubmit }) => {
           className="form-control"
         />
       </div>
-      <button type="submit" className="btn mt-3 mb-4 BlueButton" onClick={submitForm}>
+      <button type="submit" className="btn mt-3 mb-4 OrangeButton" onClick={submitForm}>
         Update Profile
       </button>
     </form>
