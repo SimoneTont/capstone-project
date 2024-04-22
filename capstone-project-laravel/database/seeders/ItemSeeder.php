@@ -17,6 +17,20 @@ class ItemSeeder extends Seeder
         // Array of supermarket items with custom image URLs
         $supermarketItems = [
             [
+                'name' => 'Erbazzone',
+                'description' => 'Italian Savory Pie',
+                'quantity' => 140,
+                'price' => 300,
+                'image_path' => 'https://www.cucchiaio.it/content/cucchiaio/it/ricette/2009/12/ricetta-erbazzone/jcr:content/header-par/image_single.img.jpg/1637654869297.jpg?im=Resize=(984)'
+            ],
+            [
+                'name' => 'Cheese',
+                'description' => 'Parmisan cheese block',
+                'quantity' => 150,
+                'price' => 350,
+                'image_path' => 'https://www.parmigianoreggiano.com/static/03e55557c69ae8abaebde439c1ab933b/e8904/5fecf9fae95e075416f86ef309fd1b2b.png'
+            ],
+            [
                 'name' => 'Milk',
                 'description' => 'Fresh whole milk',
                 'quantity' => 150,
@@ -58,13 +72,7 @@ class ItemSeeder extends Seeder
                 'price' => 500,
                 'image_path' => 'https://www.imbalstock.it/assets/www/res/images/products/20160526_151405_8afc30f1acc491b88eaa7ae1346479d60b3395db.jpg'
             ],
-            [
-                'name' => 'Tomatoes',
-                'description' => 'Vine-ripened tomatoes',
-                'quantity' => 140,
-                'price' => 300,
-                'image_path' => 'https://www.salepepe.it/files/2016/08/pomodoro-benessere-1140x636.jpg'
-            ],
+            
             [
                 'name' => 'Spaghetti',
                 'description' => 'Italian spaghetti',
@@ -78,13 +86,6 @@ class ItemSeeder extends Seeder
                 'quantity' => 170,
                 'price' => 180,
                 'image_path' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0kzooD2JyHD9LabeWDfK1w_sIza-7N2QCu6KwOFqnlA&s'
-            ],
-            [
-                'name' => 'Cheese',
-                'description' => 'Parmisan cheese block',
-                'quantity' => 150,
-                'price' => 350,
-                'image_path' => 'https://www.parmigianoreggiano.com/static/03e55557c69ae8abaebde439c1ab933b/e8904/5fecf9fae95e075416f86ef309fd1b2b.png'
             ],
             [
                 'name' => 'Yogurt',
