@@ -81,7 +81,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name' => 'Cheese',
-                'description' => 'Cheddar cheese block',
+                'description' => 'Parmisan cheese block',
                 'quantity' => 150,
                 'price' => 350,
                 'image_path' => 'https://www.parmigianoreggiano.com/static/03e55557c69ae8abaebde439c1ab933b/e8904/5fecf9fae95e075416f86ef309fd1b2b.png'
