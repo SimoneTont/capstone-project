@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "../api/axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserName, updateUserEmail } from "../redux/authSlice";
 
 const ProfileInfoForm = ({ formData, handleChange, handleSubmit }) => {
+  const dispatch = useDispatch();
   const userID = useSelector((state) => (state.auth.user ? state.auth.user.id : null));
 
   const submitForm = (e) => {
@@ -19,6 +21,8 @@ const ProfileInfoForm = ({ formData, handleChange, handleSubmit }) => {
       .put(`/user/profile/${userID}`, updatedData)
       .then((response) => {
         console.log("User profile updated:", response.data);
+        dispatch(updateUserName({ name: updatedData.name }));
+        dispatch(updateUserEmail({ email: updatedData.email }));
       })
       .catch((error) => {
         console.error("Error updating user profile:", error);
