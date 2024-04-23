@@ -41,7 +41,6 @@ const ChangePasswordForm = () => {
     axios
       .put(`/user/profile-password/${userID}`, { password })
       .then((response) => {
-        console.log("Password updated successfully:", response.data);
         alert("Password updated successfully!");
         setFormData({ password: "", confirmPassword: "" });
       })

@@ -27,7 +27,6 @@ function ProfilePage() {
         email: formData.email,
       })
       .then((response) => {
-        console.log("User profile updated:", response.data);
       })
       .catch((error) => {
         console.error("Error updating user profile:", error);
@@ -47,7 +46,6 @@ function ProfilePage() {
         password: formData.password,
       })
       .then((response) => {
-        console.log("Password changed successfully.");
       })
       .catch((error) => {
         console.error("Error changing password:", error);

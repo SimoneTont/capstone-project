@@ -40,7 +40,6 @@ function ItemDetailPage() {
             price
         })
             .then(response => {
-                console.log('Item added to cart:', response.data);
                 fetchItemDetails();
             })
             .catch(error => {

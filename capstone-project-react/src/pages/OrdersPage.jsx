@@ -14,7 +14,6 @@ function OrdersPage() {
                 if (isLoggedIn && userId) {
                     const response = await axios.get(`http://127.0.0.1:8000/api/orders/${userId}`);
                     setOrders(response.data);
-                    console.log(response.data);
                 }
             } catch (error) {
                 console.error('Error fetching orders:', error);

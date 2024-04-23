@@ -33,7 +33,6 @@ function RegisterPage() {
       if (response.status === 200) {
         const userData = response.data;
         dispatch(loginSuccess({ user: userData }));
-        console.log("Registration success:", response);
       }
     } catch (error) {
       console.error("Registration error:", error);

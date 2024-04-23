@@ -19,7 +19,6 @@ function NavBarComponent() {
       const response = axios.post("/logout", {
       });
       if (response.status === 200) {
-        console.log("Logout success:", response);
       }
     } catch (error) {
       console.error("Logout error:", error);

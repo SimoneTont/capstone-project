@@ -49,7 +49,6 @@ function AdminPage() {
     const handleDelete = (itemId) => {
         axios.delete(`http://127.0.0.1:8000/api/delete/${itemId}`)
             .then(response => {
-                console.log('Item deleted successfully:', response.data);
                 fetchItems();
             })
             .catch(error => {
@@ -80,7 +79,6 @@ function AdminPage() {
 
         axios.post('http://127.0.0.1:8000/api/add', newItem)
             .then(response => {
-                console.log('Item added successfully:', response.data);
                 fetchItems();
                 setItemName('');
                 setItemDescription('');
@@ -104,7 +102,6 @@ function AdminPage() {
 
         axios.put(`http://127.0.0.1:8000/api/edit/${editItemId}`, editedItem)
             .then(response => {
-                console.log('Item edited successfully:', response.data);
                 fetchItems();
                 setShowEditModal(false);
             })

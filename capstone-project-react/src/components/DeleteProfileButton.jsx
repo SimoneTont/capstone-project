@@ -13,7 +13,6 @@ const DeleteProfileButton = ({ userId }) => {
       axios
         .delete(`http://127.0.0.1:8000/api/user/delete/${userId}`)
         .then((response) => {
-          console.log("User deleted successfully:", response.data);
           if (response.status === 200) {
             setIsDeleted(true);
             dispatch(logout());

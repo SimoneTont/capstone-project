@@ -44,7 +44,6 @@ function HomePage() {
             price: price * quantity,
         })
             .then(response => {
-                console.log('Item added to cart:', response.data);
                 fetchItems();
             })
             .catch(error => {

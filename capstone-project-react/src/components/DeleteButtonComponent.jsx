@@ -8,7 +8,6 @@ const DeleteButton = ({ itemId, quantity, onItemDeleted }) => {
             const response = await axios.delete(`http://127.0.0.1:8000/api/cart-items/${itemId}`, {
                 data: { quantity }
             });
-            console.log(response);
 
             if (onItemDeleted) {
                 onItemDeleted();

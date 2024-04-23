@@ -18,7 +18,6 @@ const ProfileInfoForm = ({ formData, handleChange, handleSubmit }) => {
     axios
       .put(`/user/profile/${userID}`, updatedData)
       .then((response) => {
-        console.log("User profile updated:", response.data);
         dispatch(updateUserName({ name: updatedData.name }));
         dispatch(updateUserEmail({ email: updatedData.email }));
       })

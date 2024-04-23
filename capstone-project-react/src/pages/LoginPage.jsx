@@ -26,7 +26,6 @@ function LoginPage() {
       if (response.status === 200) {
         const userData = response.data.user;
         dispatch(loginSuccess({ user: userData }));
-        console.log("Login success:", userData);
       }
     } catch (error) {
       console.error("Login error:", error);
