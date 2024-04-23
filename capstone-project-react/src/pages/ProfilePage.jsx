@@ -18,27 +18,6 @@ function ProfilePage() {
     confirmPassword: "",
   });
 
-  const fetchUserData = () => {
-    axios
-      .get(`http://127.0.0.1:8000/api/users/${userId}`)
-      .then((response) => {
-        const userData = response.data;
-        setFormData({
-          username: userData.name || "",
-          email: userData.email || "",
-          password: "",
-          confirmPassword: "",
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, [userId]);
-
   const handleProfileSubmit = (e) => {
     e.preventDefault();
 
@@ -49,7 +28,6 @@ function ProfilePage() {
       })
       .then((response) => {
         console.log("User profile updated:", response.data);
-        fetchUserData();
       })
       .catch((error) => {
         console.error("Error updating user profile:", error);
