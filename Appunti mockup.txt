@@ -1,8 +1,0 @@
-Colore neutro principale per cose che devono essere colorate ma non risaltare (Footer, navbar, bordo carte)
-
-Evidenzia 
-
-Dettagli (Immagine grande a sinistra e tutto il resto a destra)
-
-Tabella recap carrello -> Aggiungi accordion per mostrare anche ordini individuali oltre al recap, togli card e sposta il crud nelle accordion, 
-aggiungi campo immagine a sinistra della tabella
