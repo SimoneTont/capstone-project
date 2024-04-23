@@ -58,4 +58,17 @@ class UserProfileController extends Controller
             return response()->json(['message' => 'Failed to update password'], 500);
         }
     }
+
+    public function delete(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully'], 200);
+    }
 }

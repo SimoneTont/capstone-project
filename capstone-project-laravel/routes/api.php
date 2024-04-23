@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
@@ -46,3 +47,7 @@ Route::delete('/delete/{id}', [ItemController::class, 'destroy']); //Delete an i
 
 //Orders
 Route::get('/orders/{id}', [SoldItemsController::class, 'index']); //List of orders of a given user
+
+//User
+
+Route::delete('/user/delete/{id}', [UserProfileController::class, 'delete']); //Delete a user

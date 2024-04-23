@@ -15,8 +15,6 @@ const ProfileInfoForm = ({ formData, handleChange, handleSubmit }) => {
       email: formData.email,
     };
 
-    console.log("Data to be sent:", updatedData);
-
     axios
       .put(`/user/profile/${userID}`, updatedData)
       .then((response) => {

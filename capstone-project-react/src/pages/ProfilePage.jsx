@@ -4,6 +4,7 @@ import { Navigate, useParams } from "react-router-dom";
 import axios from "../api/axios";
 import ProfileInfoForm from "../components/ProfileInfoForm";
 import ChangePasswordForm from "../components/ChangePasswordForm";
+import DeleteProfileButton from "../components/DeleteProfileButton";
 
 function ProfilePage() {
   const user = useSelector((state) => state.auth.user);
@@ -75,6 +76,10 @@ function ProfilePage() {
       });
   };
 
+  const onDeleteSuccess = () => {
+    alert("User deleted successfully.");
+  };
+
   if (!isLoggedIn || user.id.toString() !== userId.toString()) {
     return <Navigate to="/login" />;
   }
@@ -110,6 +115,10 @@ function ProfilePage() {
           }
           handleSubmit={handlePasswordSubmit}
         />
+      </div>
+      <div className="mt-4">
+        <h3>Danger Zone:</h3>
+        <DeleteProfileButton userId={userId} onDeleteSuccess={onDeleteSuccess} />
       </div>
     </div>
   );
