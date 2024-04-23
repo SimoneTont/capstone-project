@@ -111,7 +111,7 @@ function NavBarComponent() {
                 Your Profile
               </Nav.Link>
               <Nav.Link as={Link} to="/login">
-                <Button variant="outline-danger" className="BrownButton" onClick={handleLogout} >Logout</Button>
+                <Button variant="outline-danger" className="LogoutButton" onClick={handleLogout} >Logout</Button>
               </Nav.Link>
             </div>
           )}

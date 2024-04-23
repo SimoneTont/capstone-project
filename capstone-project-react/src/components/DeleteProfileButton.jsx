@@ -30,7 +30,7 @@ const DeleteProfileButton = ({ userId }) => {
   }
 
   return (
-    <button onClick={handleDelete} className="btn btn-danger">
+    <button onClick={handleDelete} className="btn ProfileDeleteButton">
       Delete My Account
     </button>
   );
